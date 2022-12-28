@@ -1,0 +1,12 @@
+@import 'variables';
+@mixin respond-from($breakpoint) {
+    @if type-of($breakpoint) == string {
+      @media screen and (min-width: map-get($screen-widths, $breakpoint)) {
+        @content;
+      }
+    } @else {
+      @media screen and (min-width: $breakpoint) {
+        @content;
+      }
+    }
+  }

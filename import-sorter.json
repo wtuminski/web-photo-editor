@@ -1,0 +1,47 @@
+{
+  "generalConfiguration": {
+    "sortOnBeforeSave": true
+  },
+  "importStringConfiguration": {
+    "maximumNumberOfImportExpressionsPerLine": {
+      "type": "newLineEachExpressionAfterCountLimitExceptIfOnlyOne",
+      "count": 100
+    },
+    "tabSize": 2,
+    "quoteMark": "single",
+    "trailingComma": "multiLine"
+  },
+  "sortConfiguration": {
+    "removeUnusedImports": true,
+    "customOrderingRules": {
+      "rules": [
+        {
+          "type": "importMember",
+          "regex": "^$",
+          "orderLevel": 5,
+          "disableSort": true
+        },
+        {
+          "regex": "^[a-z]",
+          "orderLevel": 10
+        },
+        {
+          "regex": "^[A-Z]",
+          "orderLevel": 13
+        },
+        {
+          "regex": "^[@]",
+          "orderLevel": 10
+        },
+        {
+          "regex": "^[.].*(?<!scss)$",
+          "orderLevel": 30
+        },
+        {
+          "regex": "scss$",
+          "orderLevel": 35
+        }
+      ]
+    }
+  }
+}

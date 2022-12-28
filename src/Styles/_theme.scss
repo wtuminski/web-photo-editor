@@ -1,0 +1,29 @@
+@import 'colors';
+
+html[data-theme="light"] {
+    --primary-blue100: #{$primary-blue100-light};
+    --primary-blue50: #{$primary-blue50-light};
+    --primary-blue20: #{$primary-blue20-light};
+    --primary-blue10: #{$primary-blue10-light};
+    --primary-blue0: #{$primary-blue0-light};
+
+    --grey100: #{$grey100-light};
+    --grey50: #{$grey50-light};
+    --grey20: #{$grey20-light};
+    --grey10: #{$grey10-light};
+    --grey0: #{$grey0-light};
+}
+  
+  html[data-theme="dark"] {
+    --primary-blue100: #{$primary-blue100-dark};
+    --primary-blue50: #{$primary-blue50-dark};
+    --primary-blue20: #{$primary-blue20-dark};
+    --primary-blue10: #{$primary-blue10-dark};
+    --primary-blue0: #{$primary-blue0-dark};
+
+    --grey100: #{$grey100-dark};
+    --grey50: #{$grey50-dark};
+    --grey20: #{$grey20-dark};
+    --grey10: #{$grey10-dark};
+    --grey0: #{$grey0-dark};
+}

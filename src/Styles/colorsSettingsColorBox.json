@@ -1,0 +1,56 @@
+[
+    {
+        "properties": {
+            "steps": 7,
+            "hue": {
+                "start": 165,
+                "end": 220,
+                "curve": "easeOutQuart"
+            },
+            "saturation": {
+                "start": 0.05,
+                "end": 1,
+                "rate": 1,
+                "curve": "easeOutQuart"
+            },
+            "brightness": {
+                "start": 1,
+                "end": 0,
+                "curve": "easeInQuart"
+            }
+        },
+        "options": {
+            "minorSteps": [],
+            "name": "blue",
+            "provideInverted": true,
+            "rotation": "clockwise"
+        }
+    },
+    {
+        "properties": {
+            "steps": 5,
+            "hue": {
+                "start": 55,
+                "end": 249,
+                "curve": "easeOutQuart"
+            },
+            "saturation": {
+                "start": 0,
+                "end": 0.96,
+                "rate": 0.1,
+                "curve": "easeInSine"
+            },
+            "brightness": {
+                "start": 1,
+                "end": 0,
+                "curve": "easeInQuad"
+            }
+        },
+        "options": {
+            "minorSteps": [],
+            "name": "grey",
+            "provideInverted": true,
+            "rotation": "clockwise"
+        }
+    }
+]
