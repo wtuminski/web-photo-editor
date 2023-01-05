@@ -1,4 +1,4 @@
-@import 'utils';
+@use 'utils';
 
 :root {
   font-family: 'Lato', sans-serif;
@@ -17,7 +17,7 @@
   -webkit-text-size-adjust: 100%;
 }
 
-@include respond-from(tablet) {
+@include utils.respond-from(tablet) {
   :root {
     font-size: 16px;
   }
