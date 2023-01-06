@@ -1,4 +1,5 @@
 import { flow } from '@mobily/ts-belt';
+import { Unstable_Grid2 as Grid } from '@mui/material';
 import { useEffect, useRef } from 'react';
 
 import { get2dContext } from '~/Utils/canvas';
@@ -26,8 +27,8 @@ export const ImageDisplaySpace: React.FC<Props> = ({ imageFile }) => {
   }, [imageFile, canvasRef]);
 
   return (
-    <div>
+    <Grid container justifyContent="center" alignItems="center" overflow="auto">
       <canvas ref={canvasRef}></canvas>
-    </div>
+    </Grid>
   );
 };
