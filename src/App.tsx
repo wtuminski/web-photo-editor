@@ -1,16 +1,44 @@
-import { AppBar, Typography, Unstable_Grid2 as Grid } from '@mui/material';
+import {
+  createTheme,
+  CssBaseline,
+  responsiveFontSizes,
+  ThemeProvider,
+  Unstable_Grid2 as Grid,
+  useMediaQuery,
+} from '@mui/material';
+import { useMemo } from 'react';
 
 import { EditorView } from '~/Views/EditorView';
 
-export const App = () => (
-  <Grid container alignSelf="stretch" flexDirection="column" flex={1}>
-    <AppBar position="sticky">
-      <Typography color="inherit" component="p" variant="h5" px={4} py={1.5}>
-        Web Photo Editor
-      </Typography>
-    </AppBar>
-    <Grid display="flex" flexGrow={1} p={4}>
-      <EditorView />
-    </Grid>
-  </Grid>
-);
+import { Header } from './Components/Header';
+
+export const App = () => {
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+
+  const theme = useMemo(
+    () =>
+      responsiveFontSizes(
+        createTheme({
+          palette: {
+            mode: prefersDarkMode ? 'dark' : 'light',
+          },
+          typography: {
+            fontFamily: 'Lato, sans-serif',
+          },
+        }),
+      ),
+    [prefersDarkMode],
+  );
+
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline enableColorScheme />
+      <Grid container alignSelf="stretch" flexDirection="column" flex={1}>
+        <Header />
+        <Grid display="flex" flexGrow={1} p={4}>
+          <EditorView />
+        </Grid>
+      </Grid>
+    </ThemeProvider>
+  );
+};
