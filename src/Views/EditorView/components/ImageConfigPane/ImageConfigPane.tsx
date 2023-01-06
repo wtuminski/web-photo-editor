@@ -17,6 +17,7 @@ export const ImageConfigPane: React.FC<Props> = ({
     const image = e.target.files?.[0];
     if (image && isSupportedImageFile(image)) loadImage(image);
   };
+
   return (
     <Grid container alignItems="flex-start">
       <Button variant="contained" component="label">
