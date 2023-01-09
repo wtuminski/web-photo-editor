@@ -1,37 +1,35 @@
 import {
-  createTheme,
   CssBaseline,
+  Experimental_CssVarsProvider as CSSVarsProvider,
+  experimental_extendTheme as extendTheme,
   responsiveFontSizes,
-  ThemeProvider,
   Unstable_Grid2 as Grid,
   useMediaQuery,
 } from '@mui/material';
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 
 import { EditorView } from '~/Views/EditorView';
 
 import { Header } from './Components/Header';
 
-export const App = () => {
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+type ExtendedTheme = ReturnType<typeof extendTheme>;
 
+export const App: React.FC = () => {
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const theme = useMemo(
     () =>
       responsiveFontSizes(
-        createTheme({
-          palette: {
-            mode: prefersDarkMode ? 'dark' : 'light',
-          },
+        extendTheme({
           typography: {
             fontFamily: 'Lato, sans-serif',
           },
         }),
-      ),
-    [prefersDarkMode],
+      ) as ExtendedTheme,
+    [],
   );
 
   return (
-    <ThemeProvider theme={theme}>
+    <CSSVarsProvider theme={theme} defaultMode={prefersDarkMode ? 'dark' : 'light'}>
       <CssBaseline enableColorScheme />
       <Grid container alignSelf="stretch" flexDirection="column" flex={1}>
         <Header />
@@ -39,6 +37,6 @@ export const App = () => {
           <EditorView />
         </Grid>
       </Grid>
-    </ThemeProvider>
+    </CSSVarsProvider>
   );
 };

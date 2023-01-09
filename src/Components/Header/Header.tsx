@@ -1,11 +1,26 @@
-import { AppBar, Toolbar, Typography } from '@mui/material';
+import { AppBar, Toolbar, Typography, Unstable_Grid2 as Grid, useColorScheme } from '@mui/material';
+import { useCallback } from 'react';
 
-export const Header: React.FC = () => (
-  <AppBar position="sticky">
-    <Toolbar>
-      <Typography color="inherit" component="p" variant="h5">
-        Web Photo Editor
-      </Typography>
-    </Toolbar>
-  </AppBar>
-);
+import { ModeToggle } from './components/ModeToggle';
+
+export const Header: React.FC = () => {
+  const { mode, setMode } = useColorScheme();
+
+  const toggleMode = useCallback(
+    () => setMode(mode === 'light' ? 'dark' : 'light'),
+    [mode, setMode],
+  );
+
+  return (
+    <AppBar position="sticky">
+      <Toolbar>
+        <Grid container justifyContent="space-between" alignItems="center" flex={1}>
+          <Typography color="inherit" component="p" variant="h5">
+            Web Photo Editor
+          </Typography>
+          <ModeToggle mode={mode!} toggleMode={toggleMode} />
+        </Grid>
+      </Toolbar>
+    </AppBar>
+  );
+};

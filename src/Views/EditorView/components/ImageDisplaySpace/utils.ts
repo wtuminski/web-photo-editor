@@ -36,13 +36,14 @@ export const drawImage = (context: CanvasRenderingContext2D, image: HTMLImageEle
 export const scheduleImageDrawing = (
   imageURL: string,
   drawImage: (image: HTMLImageElement) => void,
-) => {
+): CleanUpFunction => {
+  const abortController = new AbortController();
   const image = new Image();
-  const onLoad = () => drawImage(image);
-  image.addEventListener('load', onLoad);
+
+  image.addEventListener('load', () => drawImage(image), { signal: abortController.signal });
   image.src = imageURL; // TODO - should it be moved somewhere else?
 
-  return () => image.removeEventListener('load', onLoad);
+  return () => abortController.abort();
 };
 
 export const getImageURLAndCleanUp = (
