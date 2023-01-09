@@ -12,9 +12,26 @@ export const Header: React.FC = () => {
   );
 
   return (
-    <AppBar position="sticky">
+    <AppBar
+      sx={{
+        position: 'sticky',
+        color: 'text.primary',
+        backgroundColor: 'transparent',
+        backgroundImage: 'none',
+        borderBottom: '1px solid',
+        borderColor: 'grey.300',
+        boxShadow: 'none',
+      }}
+    >
       <Toolbar>
-        <Grid container justifyContent="space-between" alignItems="center" flex={1}>
+        <Grid
+          container
+          sx={{
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flex: 1,
+          }}
+        >
           <Typography color="inherit" component="p" variant="h5">
             Web Photo Editor
           </Typography>

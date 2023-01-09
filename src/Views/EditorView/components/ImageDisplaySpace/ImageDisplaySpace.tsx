@@ -27,7 +27,15 @@ export const ImageDisplaySpace: React.FC<Props> = ({ imageFile }) => {
   }, [imageFile, canvasRef]);
 
   return (
-    <Grid container justifyContent="center" alignItems="center" overflow="auto">
+    <Grid
+      container
+      sx={{
+        justifyContent: 'center',
+        alignItems: 'center',
+        overflow: 'auto',
+        p: 2,
+      }}
+    >
       <canvas ref={canvasRef}></canvas>
     </Grid>
   );

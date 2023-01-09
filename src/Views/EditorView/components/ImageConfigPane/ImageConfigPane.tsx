@@ -1,5 +1,7 @@
-import { Button, Unstable_Grid2 as Grid } from '@mui/material';
-import { ChangeEventHandler, useMemo } from 'react';
+import { Unstable_Grid2 as Grid } from '@mui/material';
+import { ChangeEventHandler } from 'react';
+
+import { Controls } from '../Controls';
 
 interface Props {
   supportedImageFileTypes: Readonly<ImageFileType[]>;
@@ -12,18 +14,31 @@ export const ImageConfigPane: React.FC<Props> = ({
   supportedImageFileTypes,
   isSupportedImageFile,
 }) => {
-  const accept = useMemo(() => supportedImageFileTypes.join(', '), [supportedImageFileTypes]);
   const onImageChange: ChangeEventHandler<HTMLInputElement> = e => {
     const image = e.target.files?.[0];
     if (image && isSupportedImageFile(image)) loadImage(image);
   };
 
   return (
-    <Grid container alignItems="flex-start">
-      <Button variant="contained" component="label">
-        Upload
-        <input hidden accept={accept} type="file" onChange={onImageChange} />
-      </Button>
+    <Grid
+      container
+      sx={{
+        justifyContent: 'center',
+        alignItems: 'space-between',
+        py: 4,
+        px: 2,
+        borderRight: '1px solid',
+        borderColor: 'grey.300',
+      }}
+    >
+      <Grid
+        sx={{
+          flex: 1,
+        }}
+      >
+        Editor
+      </Grid>
+      <Controls onImageChange={onImageChange} supportedImageFileTypes={supportedImageFileTypes} />
     </Grid>
   );
 };

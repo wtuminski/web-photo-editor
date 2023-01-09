@@ -23,6 +23,15 @@ export const App: React.FC = () => {
           typography: {
             fontFamily: 'Lato, sans-serif',
           },
+          colorSchemes: {
+            dark: {
+              palette: {
+                background: {
+                  default: 'grey.900',
+                },
+              },
+            },
+          },
         }),
       ) as ExtendedTheme,
     [],
@@ -33,7 +42,7 @@ export const App: React.FC = () => {
       <CssBaseline enableColorScheme />
       <Grid container alignSelf="stretch" flexDirection="column" flex={1}>
         <Header />
-        <Grid display="flex" flexGrow={1} p={4}>
+        <Grid display="flex" flexGrow={1}>
           <EditorView />
         </Grid>
       </Grid>
