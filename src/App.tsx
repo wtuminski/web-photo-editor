@@ -6,6 +6,7 @@ import {
   Unstable_Grid2 as Grid,
   useMediaQuery,
 } from '@mui/material';
+import { grey } from '@mui/material/colors';
 import React, { useMemo } from 'react';
 
 import { EditorView } from '~/Views/EditorView';
@@ -27,7 +28,7 @@ export const App: React.FC = () => {
             dark: {
               palette: {
                 background: {
-                  default: 'grey.900',
+                  default: grey[900],
                 },
               },
             },
