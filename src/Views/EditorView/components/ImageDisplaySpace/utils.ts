@@ -19,17 +19,15 @@ const getNewCanvasDimensions = (
   const ratio = imageWidth / imageHeight;
 
   // TODO - test this logic
-  return imageHeight > maxHeight
-    ? [maxHeight * ratio, maxHeight]
-    : imageWidth > maxWidth
-    ? [maxWidth, maxWidth / ratio]
-    : [imageWidth, imageHeight];
+  if (imageHeight > maxHeight) return [maxHeight * ratio, maxHeight];
+  if (imageWidth > maxWidth) return [maxWidth, maxWidth / ratio];
+  return [imageWidth, imageHeight];
 };
 
-export const drawImage = (context: CanvasRenderingContext2D, image: HTMLImageElement) => {
+export const drawImageInContext = (context: CanvasRenderingContext2D, image: HTMLImageElement) => {
   const [newWidth, newHeight] = getNewCanvasDimensions(context, image);
-  context.canvas.width = newWidth;
-  context.canvas.height = newHeight;
+  context.canvas.setAttribute('width', `${newWidth}`);
+  context.canvas.setAttribute('height', `${newHeight}`);
   context.drawImage(image, 0, 0, newWidth, newHeight);
 };
 
@@ -41,7 +39,7 @@ export const scheduleImageDrawing = (
   const image = new Image();
 
   image.addEventListener('load', () => drawImage(image), { signal: abortController.signal });
-  image.src = imageURL; // TODO - should it be moved somewhere else?
+  image.setAttribute('src', imageURL); // TODO - should it be moved somewhere else? (it's a hack
 
   return () => abortController.abort();
 };

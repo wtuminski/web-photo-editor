@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 
 import { get2dContext } from '~/Utils/canvas';
 
-import { drawImage, getImageURLAndCleanUp, scheduleImageDrawing } from './utils';
+import { drawImageInContext, getImageURLAndCleanUp, scheduleImageDrawing } from './utils';
 
 interface Props {
   imageFile?: ImageFile;
@@ -14,14 +14,14 @@ export const ImageDisplaySpace: React.FC<Props> = ({ imageFile }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    if (!canvasRef.current || !imageFile) return;
+    if (!canvasRef.current || !imageFile) return undefined;
 
     const context = get2dContext(canvasRef.current);
 
-    if (!context) return;
+    if (!context) return undefined;
 
     const [imageURL, URLCleanUp] = getImageURLAndCleanUp(imageFile);
-    const drawCleanUp = scheduleImageDrawing(imageURL, drawImage.bind(null, context));
+    const drawCleanUp = scheduleImageDrawing(imageURL, drawImageInContext.bind(null, context));
 
     return flow(URLCleanUp, drawCleanUp);
   }, [imageFile, canvasRef]);
@@ -36,7 +36,7 @@ export const ImageDisplaySpace: React.FC<Props> = ({ imageFile }) => {
         p: 2,
       }}
     >
-      <canvas ref={canvasRef}></canvas>
+      <canvas ref={canvasRef} />
     </Grid>
   );
 };
