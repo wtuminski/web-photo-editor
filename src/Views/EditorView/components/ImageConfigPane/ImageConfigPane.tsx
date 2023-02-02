@@ -38,7 +38,16 @@ export const ImageConfigPane: React.FC<Props> = ({
       >
         Editor
       </Grid>
-      <Controls onImageChange={onImageChange} supportedImageFileTypes={supportedImageFileTypes} />
+      <Controls
+        supportedImageFileTypes={supportedImageFileTypes}
+        onImageChange={onImageChange}
+        // this is just a placeholder for now
+        // eslint-disable-next-line no-console
+        onFiltersReset={() => console.log('Reset filters')}
+        // this is just a placeholder for now
+        // eslint-disable-next-line no-console
+        onSaveImage={() => console.log('Save image')}
+      />
     </Grid>
   );
 };

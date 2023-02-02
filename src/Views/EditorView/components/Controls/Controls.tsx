@@ -2,11 +2,18 @@ import { Button, Unstable_Grid2 as Grid } from '@mui/material';
 import { ChangeEventHandler, useMemo } from 'react';
 
 interface Props {
-  onImageChange: ChangeEventHandler<HTMLInputElement>;
   supportedImageFileTypes: Readonly<ImageFileType[]>;
+  onImageChange: ChangeEventHandler<HTMLInputElement>;
+  onFiltersReset: () => void;
+  onSaveImage: () => void;
 }
 
-export const Controls: React.FC<Props> = ({ onImageChange, supportedImageFileTypes }) => {
+export const Controls: React.FC<Props> = ({
+  supportedImageFileTypes,
+  onImageChange,
+  onFiltersReset,
+  onSaveImage,
+}) => {
   const accept = useMemo(() => supportedImageFileTypes.join(', '), [supportedImageFileTypes]);
   return (
     <Grid
@@ -17,12 +24,16 @@ export const Controls: React.FC<Props> = ({ onImageChange, supportedImageFileTyp
         gap: 2,
       }}
     >
-      <Button variant="outlined">Reset Filters</Button>
+      <Button variant="outlined" onClick={onFiltersReset}>
+        Reset Filters
+      </Button>
       <Button variant="outlined" component="label">
         Upload image
         <input hidden accept={accept} type="file" onChange={onImageChange} />
       </Button>
-      <Button variant="outlined">Save image</Button>
+      <Button variant="outlined" onClick={onSaveImage}>
+        Save image
+      </Button>
     </Grid>
   );
 };
