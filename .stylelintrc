@@ -1,0 +1,17 @@
+{
+  "rules": {
+    "value-keyword-case": [
+      "lower",
+      {
+        "camelCaseSvgKeywords": true
+      }
+    ],
+    "property-no-vendor-prefix": [
+      true,
+      {
+        "ignoreProperties": ["text-size-adjust"]
+      }
+    ]
+  },
+  "extends": ["stylelint-config-standard-scss", "stylelint-config-prettier-scss"]
+}
