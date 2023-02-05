@@ -9,3 +9,6 @@ export const isString = (value: unknown): value is string => typeof value === 's
 
 export const isChangeEvent = (event: { type: string }): event is ChangeEvent =>
   event.type === 'change';
+
+export const isHTMLCanvasElement = (element: unknown): element is HTMLCanvasElement =>
+  element instanceof HTMLCanvasElement;
