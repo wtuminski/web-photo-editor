@@ -1,5 +1,5 @@
 import { Unstable_Grid2 as Grid } from '@mui/material';
-import { useState } from 'react';
+import { Reducer, useReducer, useState } from 'react';
 
 import { supportedImageFileTypes } from '~/Utils/constants';
 import { isSupportedImageFile } from '~/Utils/typeGuards';
@@ -7,15 +7,36 @@ import { isSupportedImageFile } from '~/Utils/typeGuards';
 import { ImageConfigPane } from './components/ImageConfigPane';
 import { ImageDisplaySpace } from './components/ImageDisplaySpace';
 
+interface FiltersReducerAction {
+  filterType: ImageFilterType;
+  filterValue: number;
+}
+export const filtersReducer: Reducer<ImageFilters, FiltersReducerAction> = (
+  filters,
+  { filterType, filterValue },
+) => ({ ...filters, [filterType]: filterValue });
+const initialImageFilters: ImageFilters = {
+  greyscale: 0,
+  brightness: 50,
+  inversion: 0,
+  saturation: 0,
+};
+
 export const EditorView: React.FC = () => {
   const [imageFile, setImageFile] = useState<ImageFile>();
+  const [imageFilters, disptach] = useReducer(filtersReducer, initialImageFilters);
+
+  const setImageFilter = (filterType: ImageFilterType, filterValue: number) =>
+    disptach({ filterType, filterValue });
 
   return (
     <Grid display="grid" flex={1} gridTemplateColumns="1fr 4fr">
       <ImageConfigPane
+        imageFilters={imageFilters}
+        setImageFilter={setImageFilter}
         supportedImageFileTypes={supportedImageFileTypes}
-        loadImage={setImageFile}
         isSupportedImageFile={isSupportedImageFile}
+        loadImage={setImageFile}
       />
       <ImageDisplaySpace imageFile={imageFile} />
     </Grid>

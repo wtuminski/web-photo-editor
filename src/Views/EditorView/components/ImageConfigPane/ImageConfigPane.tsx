@@ -2,17 +2,22 @@ import { Unstable_Grid2 as Grid } from '@mui/material';
 import { ChangeEventHandler } from 'react';
 
 import { Controls } from '../Controls';
+import { Filters } from '../Filters';
 
 interface Props {
+  imageFilters: ImageFilters;
+  setImageFilter: (filterType: ImageFilterType, filterValue: number) => void;
   supportedImageFileTypes: Readonly<ImageFileType[]>;
-  loadImage: (image: ImageFile) => void;
   isSupportedImageFile: (file: File | ImageFile) => file is ImageFile;
+  loadImage: (image: ImageFile) => void;
 }
 
 export const ImageConfigPane: React.FC<Props> = ({
-  loadImage,
+  imageFilters,
+  setImageFilter,
   supportedImageFileTypes,
   isSupportedImageFile,
+  loadImage,
 }) => {
   const onImageChange: ChangeEventHandler<HTMLInputElement> = e => {
     const image = e.target.files?.[0];
@@ -31,13 +36,7 @@ export const ImageConfigPane: React.FC<Props> = ({
         borderColor: 'grey.300',
       }}
     >
-      <Grid
-        sx={{
-          flex: 1,
-        }}
-      >
-        Editor
-      </Grid>
+      <Filters imageFilters={imageFilters} setImageFilter={setImageFilter} />
       <Controls
         supportedImageFileTypes={supportedImageFileTypes}
         onImageChange={onImageChange}
