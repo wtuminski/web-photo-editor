@@ -26,8 +26,8 @@ const getNewCanvasDimensions = (
 
 export const drawImageInContext = (context: CanvasRenderingContext2D, image: HTMLImageElement) => {
   const [newWidth, newHeight] = getNewCanvasDimensions(context, image);
-  context.canvas.setAttribute('width', `${newWidth}`);
-  context.canvas.setAttribute('height', `${newHeight}`);
+  context.canvas.setAttribute('width', newWidth.toString());
+  context.canvas.setAttribute('height', newHeight.toString());
   context.drawImage(image, 0, 0, newWidth, newHeight);
 };
 
