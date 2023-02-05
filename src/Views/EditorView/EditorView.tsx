@@ -1,5 +1,5 @@
 import { Unstable_Grid2 as Grid } from '@mui/material';
-import { Reducer, useReducer, useState } from 'react';
+import { Reducer, useReducer, useRef, useState } from 'react';
 
 import { supportedImageFileTypes } from '~/Utils/constants';
 import { isSupportedImageFile } from '~/Utils/typeGuards';
@@ -23,6 +23,7 @@ const initialImageFilters: ImageFilters = {
 };
 
 export const EditorView: React.FC = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const [imageFile, setImageFile] = useState<ImageFile>();
   const [imageFilters, disptach] = useReducer(filtersReducer, initialImageFilters);
 
@@ -38,7 +39,7 @@ export const EditorView: React.FC = () => {
         isSupportedImageFile={isSupportedImageFile}
         loadImage={setImageFile}
       />
-      <ImageDisplaySpace imageFile={imageFile} />
+      <ImageDisplaySpace canvasRef={canvasRef} imageFile={imageFile} />
     </Grid>
   );
 };

@@ -1,14 +1,14 @@
 import { Unstable_Grid2 as Grid } from '@mui/material';
-import { useEffect, useRef } from 'react';
+import { RefObject, useEffect } from 'react';
 
 import { scheduleImageDrawingInCanvas } from '~/Utils/canvas';
 
 interface Props {
+  canvasRef: RefObject<HTMLCanvasElement>;
   imageFile?: ImageFile;
 }
 
-export const ImageDisplaySpace: React.FC<Props> = ({ imageFile }) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+export const ImageDisplaySpace: React.FC<Props> = ({ canvasRef, imageFile }) => {
   useEffect(() => {
     if (!canvasRef.current || !imageFile) return undefined;
     return scheduleImageDrawingInCanvas(canvasRef.current, imageFile);
