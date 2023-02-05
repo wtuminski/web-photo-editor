@@ -1,3 +1,5 @@
+type CleanUpFunction = VoidFunction;
+
 type ImageFileType = 'image/jpeg' | 'image/png' | 'image/svg+xml';
 
 interface ImageFile extends File {
