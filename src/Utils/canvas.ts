@@ -8,8 +8,9 @@ export function get2dContext(element: HTMLCanvasElement): CanvasRenderingContext
 export function get2dContext(
   selectorOrElement?: string | HTMLCanvasElement,
 ): CanvasRenderingContext2D | null {
+  const selector = isString(selectorOrElement) ? selectorOrElement : 'canvas';
   const element = isHTMLCanvasElement(selectorOrElement)
     ? selectorOrElement
-    : document.querySelector(isString(selectorOrElement) ? selectorOrElement : 'canvas');
+    : document.querySelector(selector);
   return (isHTMLCanvasElement(element) && element.getContext('2d')) || null;
 }

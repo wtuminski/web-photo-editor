@@ -35,7 +35,8 @@ export const Header: React.FC = () => {
           <Typography color="inherit" component="p" variant="h5">
             Web Photo Editor
           </Typography>
-          <ModeToggle mode={mode!} toggleMode={toggleMode} />
+          {/*  */}
+          <ModeToggle mode={mode ?? 'system'} toggleMode={toggleMode} />
         </Grid>
       </Toolbar>
     </AppBar>
