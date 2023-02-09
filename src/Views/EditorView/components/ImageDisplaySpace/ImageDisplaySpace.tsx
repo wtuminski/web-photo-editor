@@ -3,6 +3,8 @@ import { RefObject, useEffect } from 'react';
 
 import { scheduleImageDrawingInCanvas } from '~/Utils/canvas';
 
+import styles from './ImageDisplaySpace.module.scss';
+
 interface Props {
   canvasRef: RefObject<HTMLCanvasElement>;
   imageFile?: ImageFile;
@@ -24,7 +26,7 @@ export const ImageDisplaySpace: React.FC<Props> = ({ canvasRef, imageFile }) => 
         p: 2,
       }}
     >
-      <canvas ref={canvasRef} />
+      <canvas ref={canvasRef} className={styles.canvas} />
     </Grid>
   );
 };

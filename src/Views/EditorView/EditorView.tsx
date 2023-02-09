@@ -31,7 +31,18 @@ export const EditorView: React.FC = () => {
     disptach({ filterType, filterValue });
 
   return (
-    <Grid display="grid" flex={1} gridTemplateColumns="1fr 4fr">
+    <Grid
+      display="grid"
+      flex={1}
+      gridTemplateColumns="1fr 4fr"
+      sx={{
+        flex: 1,
+        display: 'grid',
+        gridTemplateColumns: '1fr 4fr',
+        minWidth: 0,
+        minHeight: 0,
+      }}
+    >
       <ImageConfigPane
         imageFilters={imageFilters}
         setImageFilter={setImageFilter}

@@ -15,8 +15,9 @@ export const Header: React.FC = () => {
     <AppBar
       sx={{
         position: 'sticky',
+        height: 'min-content',
         color: 'text.primary',
-        backgroundColor: 'transparent',
+        backgroundColor: 'background.default',
         backgroundImage: 'none',
         borderBottom: '1px solid',
         borderColor: 'grey.300',

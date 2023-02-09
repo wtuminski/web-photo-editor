@@ -41,11 +41,17 @@ export const App: React.FC = () => {
   return (
     <CSSVarsProvider theme={theme} defaultMode={prefersDarkMode ? 'dark' : 'light'}>
       <CssBaseline enableColorScheme />
-      <Grid container alignSelf="stretch" flexDirection="column" flex={1}>
+      <Grid
+        container
+        sx={{
+          width: '100vw',
+          height: '100vh',
+          flexDirection: 'column',
+          flexWrap: 'nowrap',
+        }}
+      >
         <Header />
-        <Grid display="flex" flexGrow={1}>
-          <EditorView />
-        </Grid>
+        <EditorView />
       </Grid>
     </CSSVarsProvider>
   );

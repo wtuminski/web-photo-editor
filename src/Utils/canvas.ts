@@ -32,35 +32,11 @@ const scheduleImageDrawing = (
   return () => abortController.abort();
 };
 
-const getCanvasMaxDimensions = (
-  context: CanvasRenderingContext2D,
-): { maxWidth: number; maxHeight: number } => {
-  const maxImageCoverage = 0.8;
-  const { height: parentHeight, width: parentWidth } =
-    context.canvas.parentElement!.getBoundingClientRect();
-
-  return { maxHeight: parentHeight * maxImageCoverage, maxWidth: parentWidth * maxImageCoverage };
-};
-
-const getNewCanvasDimensions = (
-  context: CanvasRenderingContext2D,
-  image: HTMLImageElement,
-): [width: number, height: number] => {
-  const { maxWidth, maxHeight } = getCanvasMaxDimensions(context);
-  const { naturalWidth: imageWidth, naturalHeight: imageHeight } = image;
-  const ratio = imageWidth / imageHeight;
-
-  // TODO - test this logic
-  if (imageHeight > maxHeight) return [maxHeight * ratio, maxHeight];
-  if (imageWidth > maxWidth) return [maxWidth, maxWidth / ratio];
-  return [imageWidth, imageHeight];
-};
-
 const drawImageInContext = (context: CanvasRenderingContext2D, image: HTMLImageElement) => {
-  const [newWidth, newHeight] = getNewCanvasDimensions(context, image);
-  context.canvas.setAttribute('width', newWidth.toString());
-  context.canvas.setAttribute('height', newHeight.toString());
-  context.drawImage(image, 0, 0, newWidth, newHeight);
+  const { width, height } = image;
+  context.canvas.setAttribute('width', width.toString());
+  context.canvas.setAttribute('height', height.toString());
+  context.drawImage(image, 0, 0, width, height);
 };
 
 export const scheduleImageDrawingInCanvas = (
