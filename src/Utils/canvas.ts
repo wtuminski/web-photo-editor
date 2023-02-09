@@ -1,5 +1,11 @@
-const get2dContext = (canvas: HTMLCanvasElement): CanvasRenderingContext2D | null =>
-  canvas.getContext('2d');
+import { memoize } from './memoize';
+
+const get2dContext = memoize((canvas: HTMLCanvasElement): CanvasRenderingContext2D => {
+  const context = canvas.getContext('2d');
+  if (context === null)
+    throw new Error('Other type of context was already requested from provided canvas element');
+  return context;
+});
 
 const getImageURLAndCleanUp = (
   imageFile: ImageFile,
@@ -48,3 +54,9 @@ export const scheduleImageDrawingInCanvas = (
     drawCleanUp();
   };
 };
+
+export const getImageData = (canvas: HTMLCanvasElement): ImageData =>
+  get2dContext(canvas).getImageData(0, 0, canvas.width, canvas.height);
+
+export const applyImageData = (canvas: HTMLCanvasElement, imageData: ImageData) =>
+  get2dContext(canvas).putImageData(imageData, 0, 0);
