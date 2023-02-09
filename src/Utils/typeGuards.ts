@@ -2,6 +2,8 @@ import { ChangeEvent } from 'react';
 
 import { supportedImageFileTypes } from './constants';
 
+// TODO - check what can be deleted
+
 export const isSupportedImageFile = (file: File | ImageFile): file is ImageFile =>
   supportedImageFileTypes.includes(file.type as ImageFileType);
 

@@ -1,16 +1,5 @@
-import { isHTMLCanvasElement, isString } from './typeGuards';
-
-export function get2dContext(selector?: string): CanvasRenderingContext2D | null;
-export function get2dContext(element: HTMLCanvasElement): CanvasRenderingContext2D | null;
-export function get2dContext(
-  selectorOrElement?: string | HTMLCanvasElement,
-): CanvasRenderingContext2D | null {
-  const selector = isString(selectorOrElement) ? selectorOrElement : 'canvas';
-  const element = isHTMLCanvasElement(selectorOrElement)
-    ? selectorOrElement
-    : document.querySelector(selector);
-  return (isHTMLCanvasElement(element) && element.getContext('2d')) || null;
-}
+const get2dContext = (canvas: HTMLCanvasElement): CanvasRenderingContext2D | null =>
+  canvas.getContext('2d');
 
 const getImageURLAndCleanUp = (
   imageFile: ImageFile,
@@ -38,6 +27,10 @@ const drawImageInContext = (context: CanvasRenderingContext2D, image: HTMLImageE
   context.canvas.setAttribute('height', height.toString());
   context.drawImage(image, 0, 0, width, height);
 };
+
+//
+// Public
+//
 
 export const scheduleImageDrawingInCanvas = (
   canvasElement: HTMLCanvasElement,
