@@ -13,7 +13,8 @@ interface Props {
 export const ImageDisplaySpace: React.FC<Props> = ({ canvasRef, imageFile }) => {
   useEffect(() => {
     if (!canvasRef.current || !imageFile) return undefined;
-    return scheduleImageDrawingInCanvas(canvasRef.current, imageFile);
+    const { cleanUp } = scheduleImageDrawingInCanvas(canvasRef.current, imageFile);
+    return cleanUp;
   }, [imageFile, canvasRef]);
 
   return (

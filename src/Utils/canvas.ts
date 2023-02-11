@@ -1,3 +1,4 @@
+import { DeferredPromise } from './DeferredPromise';
 import { memoize } from './memoize';
 
 const get2dContext = memoize((canvas: HTMLCanvasElement): CanvasRenderingContext2D => {
@@ -17,14 +18,23 @@ const getImageURLAndCleanUp = (
 const scheduleImageDrawing = (
   imageURL: string,
   drawImage: (image: HTMLImageElement) => void,
-): CleanUpFunction => {
+): { done: Promise<void>; cleanUp: CleanUpFunction } => {
   const abortController = new AbortController();
   const image = new Image();
+  const done = new DeferredPromise<void>();
 
-  image.addEventListener('load', () => drawImage(image), { signal: abortController.signal });
+  const drawAndResolve = () => {
+    drawImage(image);
+    done.resolve();
+  };
+
+  image.addEventListener('load', drawAndResolve, { signal: abortController.signal });
   image.setAttribute('src', imageURL); // TODO - should it be moved somewhere else? (it's a hack
 
-  return () => abortController.abort();
+  return {
+    done,
+    cleanUp: () => abortController.abort(),
+  };
 };
 
 const drawImageInContext = (context: CanvasRenderingContext2D, image: HTMLImageElement) => {
@@ -41,17 +51,20 @@ const drawImageInContext = (context: CanvasRenderingContext2D, image: HTMLImageE
 export const scheduleImageDrawingInCanvas = (
   canvasElement: HTMLCanvasElement,
   imageFile: ImageFile,
-): CleanUpFunction | void => {
+): { cleanUp: CleanUpFunction; done: Promise<void> } => {
   const context = get2dContext(canvasElement);
 
-  if (!context) return undefined;
-
   const [imageURL, URLCleanUp] = getImageURLAndCleanUp(imageFile);
-  const drawCleanUp = scheduleImageDrawing(imageURL, drawImageInContext.bind(null, context));
-
-  return () => {
-    URLCleanUp();
-    drawCleanUp();
+  const { cleanUp: drawCleanUp, done } = scheduleImageDrawing(
+    imageURL,
+    drawImageInContext.bind(null, context),
+  );
+  return {
+    done,
+    cleanUp: () => {
+      URLCleanUp();
+      drawCleanUp();
+    },
   };
 };
 
