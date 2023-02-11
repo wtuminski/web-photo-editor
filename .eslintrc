@@ -46,6 +46,7 @@
         "allowArrowFunctions": true,
         "allowFunctions": true
       }
-    ]
+    ],
+    "@typescript-eslint/lines-between-class-members": "off"
   }
 }
