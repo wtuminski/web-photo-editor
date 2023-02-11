@@ -15,8 +15,9 @@ export const filtersReducer: Reducer<ImageFilters, FiltersReducerAction> = (
   filters,
   { filterType, filterValue },
 ) => ({ ...filters, [filterType]: filterValue });
+
 const initialImageFilters: ImageFilters = {
-  greyscale: 0,
+  grayscale: 50,
   brightness: 50,
   inversion: 0,
   saturation: 0,
