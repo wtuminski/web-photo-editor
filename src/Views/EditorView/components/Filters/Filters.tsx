@@ -19,7 +19,7 @@ interface Props {
 }
 
 export const Filters: React.FC<Props> = ({ imageFilters, setImageFilter }) => {
-  const [selectedFilter, setSelectedFilter] = useState<ImageFilterType>('greyscale');
+  const [selectedFilter, setSelectedFilter] = useState<ImageFilterType>('grayscale');
 
   const selectedFilterValue = selectedFilter ? imageFilters[selectedFilter] : undefined;
 
