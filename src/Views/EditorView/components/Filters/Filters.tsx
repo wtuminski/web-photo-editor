@@ -9,25 +9,30 @@ import {
   Typography,
   Unstable_Grid2 as Grid,
 } from '@mui/material';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
 
 import { isChangeEvent } from '~/Utils/typeGuards';
 
 interface Props {
   imageFilters: ImageFilters;
-  setImageFilter: (filterType: ImageFilterType, filterValue: number) => void;
+  selectedImageFilter: ImageFilterType;
+  setSelectedImageFilter: (imageFilterType: ImageFilterType) => void;
+  setImageFilterValue: (filterValue: number) => void;
 }
 
 const MIN_FILTER_VALUE = -100;
 const MAX_FILTER_VALUE = 100;
 
-export const Filters: React.FC<Props> = ({ imageFilters, setImageFilter }) => {
-  const [selectedFilter, setSelectedFilter] = useState<ImageFilterType>('grayscale');
-
-  const selectedFilterValue = selectedFilter ? imageFilters[selectedFilter] : undefined;
+export const Filters: React.FC<Props> = ({
+  imageFilters,
+  selectedImageFilter,
+  setSelectedImageFilter,
+  setImageFilterValue,
+}) => {
+  const selectedFilterValue = selectedImageFilter ? imageFilters[selectedImageFilter] : undefined;
 
   const onFilterTypeChange = (event: SelectChangeEvent) =>
-    setSelectedFilter(event.target.value as ImageFilterType);
+    setSelectedImageFilter(event.target.value as ImageFilterType);
 
   function onFilterValueChange(event: Event, value: number | number[]): void;
   function onFilterValueChange(event: ChangeEvent<HTMLInputElement>): void;
@@ -36,10 +41,10 @@ export const Filters: React.FC<Props> = ({ imageFilters, setImageFilter }) => {
     value?: number | number[],
   ): void {
     if (typeof value === 'number') {
-      return setImageFilter(selectedFilter, value);
+      return setImageFilterValue(value);
     }
     if (isChangeEvent(event)) {
-      return setImageFilter(selectedFilter, Number(event.target.value));
+      return setImageFilterValue(Number(event.target.value));
     }
     throw new Error('Incorrect event or value');
   }
@@ -51,7 +56,7 @@ export const Filters: React.FC<Props> = ({ imageFilters, setImageFilter }) => {
         <Select
           labelId="filterSelector"
           label="Selected Filter"
-          value={selectedFilter}
+          value={selectedImageFilter}
           onChange={onFilterTypeChange}
         >
           {Object.keys(imageFilters).map(filterType => (

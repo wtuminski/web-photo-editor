@@ -6,7 +6,9 @@ import { Filters } from '../Filters';
 
 interface Props {
   imageFilters: ImageFilters;
-  setImageFilter: (filterType: ImageFilterType, filterValue: number) => void;
+  selectedImageFilter: ImageFilterType;
+  setSelectedImageFilter: (imageFilterType: ImageFilterType) => void;
+  setImageFilterValue: (filterValue: number) => void;
   supportedImageFileTypes: Readonly<ImageFileType[]>;
   isSupportedImageFile: (file: File | ImageFile) => file is ImageFile;
   loadImage: (image: ImageFile) => void;
@@ -14,7 +16,9 @@ interface Props {
 
 export const ImageConfigPane: React.FC<Props> = ({
   imageFilters,
-  setImageFilter,
+  selectedImageFilter,
+  setSelectedImageFilter,
+  setImageFilterValue,
   supportedImageFileTypes,
   isSupportedImageFile,
   loadImage,
@@ -36,7 +40,12 @@ export const ImageConfigPane: React.FC<Props> = ({
         borderColor: 'grey.300',
       }}
     >
-      <Filters imageFilters={imageFilters} setImageFilter={setImageFilter} />
+      <Filters
+        imageFilters={imageFilters}
+        selectedImageFilter={selectedImageFilter}
+        setSelectedImageFilter={setSelectedImageFilter}
+        setImageFilterValue={setImageFilterValue}
+      />
       <Controls
         supportedImageFileTypes={supportedImageFileTypes}
         onImageChange={onImageChange}
