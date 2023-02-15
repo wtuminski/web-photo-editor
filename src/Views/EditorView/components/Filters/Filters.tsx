@@ -18,6 +18,9 @@ interface Props {
   setImageFilter: (filterType: ImageFilterType, filterValue: number) => void;
 }
 
+const MIN_FILTER_VALUE = -100;
+const MAX_FILTER_VALUE = 100;
+
 export const Filters: React.FC<Props> = ({ imageFilters, setImageFilter }) => {
   const [selectedFilter, setSelectedFilter] = useState<ImageFilterType>('grayscale');
 
@@ -74,6 +77,9 @@ export const Filters: React.FC<Props> = ({ imageFilters, setImageFilter }) => {
               value={selectedFilterValue}
               onChange={onFilterValueChange}
               aria-labelledby="filterValueSetter"
+              min={MIN_FILTER_VALUE}
+              max={MAX_FILTER_VALUE}
+              step={10}
             />
           </Grid>
           <Grid>
@@ -83,8 +89,8 @@ export const Filters: React.FC<Props> = ({ imageFilters, setImageFilter }) => {
               onChange={onFilterValueChange}
               inputProps={{
                 step: 1,
-                min: 0,
-                max: 100,
+                min: MIN_FILTER_VALUE,
+                max: MAX_FILTER_VALUE,
                 type: 'number',
                 'aria-labelledby': 'filterValueSetter',
               }}
