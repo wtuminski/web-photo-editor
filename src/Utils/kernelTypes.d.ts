@@ -6,7 +6,7 @@ interface ImageFile extends File {
   type: ImageFileType;
 }
 
-type ImageFilterType = 'brightness' | 'grayscale' | 'inversion' | 'saturation';
+type ImageFilterType = 'grayscale' | 'inversion' | 'saturation' | 'luminosity' | 'hue';
 
 type ImageFilters = Record<ImageFilterType, number>;
 

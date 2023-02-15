@@ -11,17 +11,19 @@ interface FiltersReducerAction {
   filterType: ImageFilterType;
   filterValue: number;
 }
-export const filtersReducer: Reducer<ImageFilters, FiltersReducerAction> = (
-  filters,
-  { filterType, filterValue },
-) => ({ ...filters, [filterType]: filterValue });
 
 const initialImageFilters: ImageFilters = {
-  grayscale: 50,
-  brightness: 50,
+  grayscale: 0,
   inversion: 0,
+  hue: 0,
   saturation: 0,
+  luminosity: 0,
 };
+
+const filtersReducer: Reducer<ImageFilters, FiltersReducerAction | 'reset'> = (filters, action) =>
+  action === 'reset'
+    ? { ...initialImageFilters }
+    : { ...filters, [action.filterType]: action.filterValue };
 
 export const EditorView: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
