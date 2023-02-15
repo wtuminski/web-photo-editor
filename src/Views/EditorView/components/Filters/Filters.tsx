@@ -13,6 +13,8 @@ import { ChangeEvent } from 'react';
 
 import { isChangeEvent } from '~/Utils/typeGuards';
 
+import styles from './Filters.module.scss';
+
 interface Props {
   imageFilters: ImageFilters;
   selectedImageFilter: ImageFilterType;
@@ -50,7 +52,7 @@ export const Filters: React.FC<Props> = ({
   }
 
   return (
-    <div>
+    <div className={styles.root}>
       <FormControl fullWidth>
         <InputLabel id="filterSelector">Selected Filter</InputLabel>
         <Select
