@@ -1,4 +1,4 @@
-import { MAX_RGB_VALUE } from '~/Utils/constants';
+import { MAX_RGB_VALUE, MIN_RGB_VALUE } from '~/Utils/constants';
 
 import { hslaToRgba, rgbaToHsla } from './colorConverters';
 import {
@@ -18,11 +18,15 @@ import {
 const grayscale: ImageFilter = (pixels, filterValue) =>
   mapPixles(pixels, ([r, g, b, a]) => {
     const avg = average([r, g, b]) * calculateFilterRate(filterValue);
-    return [avg, avg, avg, a];
+    const adjustedAvg = adjustValueToRange({ max: MAX_RGB_VALUE, min: MIN_RGB_VALUE, value: avg });
+    return [adjustedAvg, adjustedAvg, adjustedAvg, a];
   });
 
 const inversion: ImageFilter = (pixels, filterValue) => {
-  const invert = (value: number) => (MAX_RGB_VALUE - value) * calculateFilterRate(filterValue);
+  const invert = (value: number) => {
+    const inverted = (MAX_RGB_VALUE - value) * calculateFilterRate(filterValue);
+    return adjustValueToRange({ max: MAX_RGB_VALUE, min: MIN_RGB_VALUE, value: inverted });
+  };
   return mapPixles(pixels, ([r, g, b, a]) => [invert(r), invert(g), invert(b), a]);
 };
 
