@@ -12,11 +12,16 @@ export const EditorView: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [imageFile, setImageFile] = useState<ImageFile | null>(null);
 
-  const { imageFilters, setImageFilterValue, selectedImageFilter, setSelectedImageFilter } =
-    useEditImage({
-      canvas: canvasRef.current,
-      imageFile,
-    });
+  const {
+    imageFilters,
+    setImageFilterValue,
+    selectedImageFilter,
+    setSelectedImageFilter,
+    isImageFilterInProgress,
+  } = useEditImage({
+    canvas: canvasRef.current,
+    imageFile,
+  });
 
   return (
     <Grid
@@ -39,6 +44,7 @@ export const EditorView: React.FC = () => {
         supportedImageFileTypes={supportedImageFileTypes}
         isSupportedImageFile={isSupportedImageFile}
         loadImage={setImageFile}
+        isImageFilterInProgress={isImageFilterInProgress}
       />
       <ImageDisplaySpace canvasRef={canvasRef} />
     </Grid>

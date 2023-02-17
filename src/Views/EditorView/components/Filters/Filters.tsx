@@ -1,4 +1,5 @@
 import {
+  Fade,
   FormControl,
   Input,
   InputLabel,
@@ -20,6 +21,7 @@ interface Props {
   selectedImageFilter: ImageFilterType;
   setSelectedImageFilter: (imageFilterType: ImageFilterType) => void;
   setImageFilterValue: (filterValue: number) => void;
+  isImageFilterInProgress: boolean;
 }
 
 const MIN_FILTER_VALUE = -100;
@@ -30,6 +32,7 @@ export const Filters: React.FC<Props> = ({
   selectedImageFilter,
   setSelectedImageFilter,
   setImageFilterValue,
+  isImageFilterInProgress,
 }) => {
   const selectedFilterValue = selectedImageFilter ? imageFilters[selectedImageFilter] : undefined;
 
@@ -87,6 +90,8 @@ export const Filters: React.FC<Props> = ({
               min={MIN_FILTER_VALUE}
               max={MAX_FILTER_VALUE}
               step={10}
+              size="small"
+              sx={{ ml: 0.8 }}
             />
           </Grid>
           <Grid>
@@ -105,6 +110,11 @@ export const Filters: React.FC<Props> = ({
           </Grid>
         </Grid>
       </FormControl>
+      <Fade in={isImageFilterInProgress}>
+        <Typography align="center" variant="subtitle2" color="warning.main">
+          ...in progress
+        </Typography>
+      </Fade>
     </div>
   );
 };

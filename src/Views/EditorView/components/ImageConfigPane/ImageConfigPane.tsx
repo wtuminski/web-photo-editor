@@ -12,6 +12,7 @@ interface Props {
   supportedImageFileTypes: Readonly<ImageFileType[]>;
   isSupportedImageFile: (file: File | ImageFile) => file is ImageFile;
   loadImage: (image: ImageFile) => void;
+  isImageFilterInProgress: boolean;
 }
 
 export const ImageConfigPane: React.FC<Props> = ({
@@ -22,6 +23,7 @@ export const ImageConfigPane: React.FC<Props> = ({
   supportedImageFileTypes,
   isSupportedImageFile,
   loadImage,
+  isImageFilterInProgress,
 }) => {
   const onImageChange: ChangeEventHandler<HTMLInputElement> = e => {
     const image = e.target.files?.[0];
@@ -45,6 +47,7 @@ export const ImageConfigPane: React.FC<Props> = ({
         selectedImageFilter={selectedImageFilter}
         setSelectedImageFilter={setSelectedImageFilter}
         setImageFilterValue={setImageFilterValue}
+        isImageFilterInProgress={isImageFilterInProgress}
       />
       <Controls
         supportedImageFileTypes={supportedImageFileTypes}

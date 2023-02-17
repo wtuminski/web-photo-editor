@@ -34,52 +34,60 @@ interface UseEditImageHandlers {
   setImageFilterValue: (filterValue: number) => void;
   selectedImageFilter: ImageFilterType;
   setSelectedImageFilter: (imageFilterType: ImageFilterType) => void;
+  isImageFilterInProgress: boolean;
 }
 
 export const useEditImage = ({ canvas, imageFile }: Props): UseEditImageHandlers => {
-  const imageDataProcessorRef = useRef<ImageDataProcessor | null>(null);
+  const imageDataProcessor = useRef<ImageDataProcessor | null>(null);
   const [imageFilters, dispatch] = useReducer(filtersReducer, initialImageFilters);
 
   const [imageLoading, setImageLoading] = useState<'init' | 'loading' | 'ready'>('init');
   const [selectedImageFilter, setSelectedImageFilter] = useState<ImageFilterType>('grayscale');
+  const [isImageFilterInProgress, setIsImageFilterInProgress] = useState<boolean>(false);
 
-  const applyCurrentImageFilter = (filterValue?: number) => {
-    if (!canvas || !imageDataProcessorRef.current) return;
-    const currentFilterValue = filterValue ?? imageFilters[selectedImageFilter];
-    const newImageData = imageDataProcessorRef.current[selectedImageFilter](currentFilterValue);
-    applyImageData(canvas, newImageData);
+  const currentFilterValue = imageFilters[selectedImageFilter];
+
+  const applyCurrentImageFilter = (): CleanUpFunction | void => {
+    if (!canvas || !imageDataProcessor.current || imageLoading !== 'ready') return undefined;
+    setIsImageFilterInProgress(true);
+
+    const timeoutId = setTimeout(() => {
+      const newImageData = imageDataProcessor.current![selectedImageFilter](currentFilterValue);
+      applyImageData(canvas, newImageData);
+      setIsImageFilterInProgress(false);
+    }, 100);
+    return () => clearTimeout(timeoutId);
   };
 
-  const setImageFilterValue = (filterValue: number) => {
-    applyCurrentImageFilter(filterValue);
+  const setImageFilterValue = (filterValue: number): void =>
     dispatch({ filterType: selectedImageFilter, filterValue });
-  };
 
   //
   // side effects
   //
-  const onImageChange = () => {
+  const onImageChange = (): CleanUpFunction | void => {
     if (!canvas || !imageFile) return undefined;
-    const { cleanUp, done } = scheduleImageDrawingInCanvas(canvas, imageFile);
     setImageLoading('loading');
+    dispatch('resetFilters');
+    const { cleanUp, done } = scheduleImageDrawingInCanvas(canvas, imageFile);
     done.then(() => setImageLoading('ready'));
     return cleanUp;
   };
 
-  const onImageLoaded = () => {
-    if (imageLoading !== 'ready') return;
-    dispatch('resetFilters');
+  const onImageLoaded = (): CleanUpFunction | void => {
+    if (imageLoading !== 'ready') return undefined;
     // eslint-disable-next-line immutable/no-mutation
-    imageDataProcessorRef.current = createImageDataProcessor(getImageData(canvas!)); // at this point canvas must be defined
-    applyCurrentImageFilter();
+    imageDataProcessor.current = createImageDataProcessor(getImageData(canvas!)); // at this point canvas must be defined
+    return applyCurrentImageFilter();
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const onImageFilterUpdate = applyCurrentImageFilter;
+
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(onImageChange, [imageFile, canvas]);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(onImageLoaded, [imageLoading]);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(applyCurrentImageFilter, [selectedImageFilter]);
+  useEffect(onImageFilterUpdate, [currentFilterValue, selectedImageFilter]);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   //
   // handlers
@@ -89,5 +97,6 @@ export const useEditImage = ({ canvas, imageFile }: Props): UseEditImageHandlers
     setImageFilterValue,
     selectedImageFilter,
     setSelectedImageFilter,
+    isImageFilterInProgress,
   };
 };
