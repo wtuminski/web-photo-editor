@@ -1,0 +1,4 @@
+{
+  "extends": "@web-photo-editor/tsconfig",
+  "include": ["src"]
+}

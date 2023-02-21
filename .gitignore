@@ -1,7 +1,10 @@
 # dependencies
 **/node_modules
-
+**/dist
+**/build
+**/coverage/**
 
 # misc
+.yarn
 .DS_Store
-coverage/**
+.idea/

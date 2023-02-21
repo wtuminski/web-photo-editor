@@ -1,0 +1,11 @@
+{
+  "extends": "@web-photo-editor/tsconfig",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["src/*"]
+    }
+  },
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.vite.json" }]
+}

@@ -1,3 +1,16 @@
+.yarn/
+.yarnrc.yml
+.eslintrc
 .prettierrc
 import-sorter.json
-.stylelintrc
+.vscode/
+
+
+**/.stylelintrc
+**/coverage/
+**/dist/
+**/package.json
+**/tsconfig.json
+**/tsconfig.vite.json
+**/vite.config.ts 
+**/vite-env.d.ts

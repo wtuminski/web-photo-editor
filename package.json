@@ -1,38 +1,31 @@
 {
   "name": "web-photo-editor",
-  "private": false,
-  "version": "0.0.1",
-  "type": "module",
+  "version": "0.1.0",
+  "description": "A simple web photo editor",
+  "repository": "git@github.com:wtuminski/web-photo-editor.git",
+  "author": "Wiktor Tuminski <wiktor.tuminski@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "packageManager": "yarn@3.4.1",
+  "workspaces": [
+    "frontend",
+    "imageDataProcessors/*",
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "test": "vitest",
-    "test:coverage": "vitest run --coverage",
-    "fix:prettier": "prettier --write .",
-    "fix:stylelint": "stylelint \"**/*.scss\"",
-    "fix:lint": "eslint --ext .ts,.tsx .",
-    "fix:all": "yarn fix:prettier & yarn fix:stylelint & yarn fix:lint"
-  },
-  "dependencies": {
-    "@emotion/react": "^11.10.5",
-    "@emotion/styled": "^11.10.5",
-    "@mobily/ts-belt": "^3.13.1",
-    "@mui/icons-material": "^5.11.0",
-    "@mui/material": "^5.11.4",
-    "@mui/system": "^5.11.5",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "compile": "yarn workspaces foreach -p --topological-dev run compile",
+    "build": "yarn compile & yarn workspaces foreach -p --topological-dev run build",
+    "start": "yarn workspace frontend start",
+    "start:dev": "yarn workspace frontend dev",
+    "test": "yarn workspaces foreach -p --topological-dev run test:coverage",
+    "test:coverage": "yarn workspaces foreach -p --topological-dev run test:coverage",
+    "prettier": "prettier --write .",
+    "lint": "yarn workspaces foreach -p --topological-dev run lint"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.12",
     "@types/node": "^18.11.18",
-    "@types/react": "^18.0.26",
-    "@types/react-dom": "^18.0.9",
     "@typescript-eslint/eslint-plugin": "^5.48.1",
     "@typescript-eslint/parser": "^5.48.1",
-    "@vitejs/plugin-react-swc": "^3.0.0",
-    "@vitest/coverage-c8": "^0.28.4",
     "eslint": "^8.31.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
@@ -43,13 +36,6 @@
     "eslint-plugin-react": "^7.32.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^2.8.3",
-    "sass": "^1.57.1",
-    "stylelint": "^14.16.1",
-    "stylelint-config-prettier-scss": "^0.0.1",
-    "stylelint-config-standard-scss": "^6.1.0",
-    "typescript": "4.9.4",
-    "vite": "^4.1.1",
-    "vite-plugin-checker": "^0.5.5",
-    "vitest": "^0.28.4"
+    "typescript": "4.9.4"
   }
 }
