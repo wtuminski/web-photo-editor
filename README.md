@@ -3,7 +3,11 @@
 ## Requirement:
 
 - yarn 3
-- yarn plugin import workspace-tools
+  - npm i -g yarn
+  - yarn set version berry
+  - yarn
+- yarn workspace-tools plugin
+  - yarn plugin import workspace-tools
 
 ## How to use:
 
