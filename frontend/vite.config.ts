@@ -12,6 +12,9 @@ export default defineConfig({
       typescript: true,
     }),
   ],
+  build: {
+    target: "esnext"
+  },
   resolve: {
     alias: {
       '~': path.resolve(__dirname, 'src'),

@@ -1,0 +1,14 @@
+{
+  "parserOptions": {
+    "project": ["assembly/tsconfig.json", "tests/tsconfig.json"]
+  },
+    "rules": {
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+              "js": "always"
+            }
+          ]
+    }
+}

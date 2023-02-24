@@ -1,0 +1,29 @@
+{
+  "name": "@web-photo-editor/as-image-data-processor",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "packageManager": "yarn@3.4.1",
+  "exports": {
+    ".": "./dist/release/index.js"
+  },
+  "types": "./dist/release/index.d.ts",
+  "scripts": {
+    "compile": "asc --noEmit",
+    "build:debug": "asc --target debug",
+    "build:release": "asc --target release",
+    "build": "yarn build:debug & yarn build:release",
+    "dev": "chokidar \"assembly/**/*.ts\"  --initial --command \"yarn build:release\"",
+    "test": "sh ./scripts/run-tests.sh",
+    "test:watch": "chokidar \"assembly/**/*.ts\" \"tests/**/*.ts\" --initial --command \"yarn test\"",
+    "posttest": "",
+    "lint": "eslint --ext .ts ."
+  },
+  "devDependencies": {
+    "@web-photo-editor/tsconfig": "0.1.0",
+    "assemblyscript": "^0.27.0",
+    "chokidar-cli": "3.0.0",
+    "eslint": "^8.31.0",
+    "typescript": "4.9.5"
+  }
+}

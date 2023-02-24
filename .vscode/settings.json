@@ -5,6 +5,6 @@
     "./packages/utils",
     "./packages/tsvonfig",
     "./imageDataProcessors/TSImageDataProcessor",
-    "./imageDataProcessors/ASImageDataProcessor"
+    "./imageDataProcessors/ASImageDataProcessor",
   ]
 }

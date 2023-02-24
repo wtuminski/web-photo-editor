@@ -9,8 +9,6 @@ import-sorter.json
 **/.stylelintrc
 **/coverage/
 **/dist/
-**/package.json
-**/tsconfig.json
 **/tsconfig.vite.json
 **/vite.config.ts 
 **/vite-env.d.ts

@@ -1,0 +1,12 @@
+{
+  "extends": "@web-photo-editor/tsconfig",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./*"]
+    },
+    "noEmit": false,
+    "moduleResolution": "node16",
+    "isolatedModules": false
+  }
+}

@@ -13,14 +13,14 @@
     "packages/*"
   ],
   "scripts": {
-    "compile": "yarn workspaces foreach -p --topological-dev run compile",
-    "build": "yarn compile & yarn workspaces foreach -p --topological-dev run build",
+    "compile": "yarn workspaces foreach -piv --topological-dev run compile",
+    "build": "yarn compile & yarn workspaces foreach -piv --topological-dev run build",
     "start": "yarn workspace frontend start",
-    "start:dev": "yarn workspace frontend dev",
-    "test": "yarn workspaces foreach -p --topological-dev run test:coverage",
-    "test:coverage": "yarn workspaces foreach -p --topological-dev run test:coverage",
+    "dev": "yarn workspaces foreach -piv run dev",
+    "test": "yarn workspaces foreach -piv --topological-dev run test",
+    "test:coverage": "yarn workspaces foreach -piv --topological-dev run test:coverage",
     "prettier": "prettier --write .",
-    "lint": "yarn workspaces foreach -p --topological-dev run lint"
+    "lint": "yarn workspaces foreach -piv --topological-dev run lint"
   },
   "devDependencies": {
     "@types/node": "^18.11.18",
@@ -36,6 +36,6 @@
     "eslint-plugin-react": "^7.32.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^2.8.3",
-    "typescript": "4.9.4"
+    "typescript": "4.9.5"
   }
 }
