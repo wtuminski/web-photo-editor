@@ -1,13 +1,12 @@
 {
-  "parserOptions": {
-    "project": ["assembly/tsconfig.json", "tests/tsconfig.json"]
-  },
+  "ignorePatterns":["as-pect.config.js"],
     "rules": {
         "import/extensions": [
             "error",
             "ignorePackages",
             {
-              "js": "always"
+              "js": "always",
+              "ts": "never"
             }
           ]
     }

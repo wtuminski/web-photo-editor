@@ -14,12 +14,13 @@
     "build:release": "asc --target release",
     "build": "yarn build:debug & yarn build:release",
     "dev": "chokidar \"assembly/**/*.ts\"  --initial --command \"yarn build:release\"",
-    "test": "sh ./scripts/run-tests.sh",
-    "test:watch": "chokidar \"assembly/**/*.ts\" \"tests/**/*.ts\" --initial --command \"yarn test\"",
-    "posttest": "",
+    "test": "asp --summary",
+    "test:verbose": "asp --verbose",
+    "test:watch": "chokidar \"assembly/**/*.ts\" --initial --command \"yarn test:verbose\"",
     "lint": "eslint --ext .ts ."
   },
   "devDependencies": {
+    "@as-pect/cli": "^8.0.1",
     "@web-photo-editor/tsconfig": "0.1.0",
     "assemblyscript": "^0.27.0",
     "chokidar-cli": "3.0.0",
