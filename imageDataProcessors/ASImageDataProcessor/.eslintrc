@@ -1,6 +1,7 @@
 {
   "ignorePatterns":["as-pect.config.js"],
     "rules": {
+      "prefer-destructuring": "off",
         "import/extensions": [
             "error",
             "ignorePackages",

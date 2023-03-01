@@ -2,11 +2,11 @@ import { HSLAPixel, MAX_RGB_VALUE, RGBAPixel } from '@web-photo-editor/utils';
 
 const round = (v: number, decimals: number = 0) => Math.round(v * 10 ** decimals) / 10 ** decimals;
 
-const converRgbatoRgbZeroOneRange = (rgba: RGBAPixel) =>
+const converRgbaToRgbZeroOneRange = (rgba: RGBAPixel) =>
   rgba.slice(0, 3).map(color => color / MAX_RGB_VALUE) as [number, number, number];
 
 const calculateHue = (rgba: RGBAPixel, cMax: number, delta: number): number => {
-  const [r, g, b] = converRgbatoRgbZeroOneRange(rgba);
+  const [r, g, b] = converRgbaToRgbZeroOneRange(rgba);
   const calculateHueBase = () => {
     if (delta === 0) return 0;
     if (r === cMax) return (g - b) / delta;
@@ -33,7 +33,7 @@ const calculateLuminosity = (cMax: number, cMin: number): number => {
 };
 
 export const rgbaToHsla = (rgba: RGBAPixel) => {
-  const rgbInZeroOneRange = converRgbatoRgbZeroOneRange(rgba);
+  const rgbInZeroOneRange = converRgbaToRgbZeroOneRange(rgba);
   const alpha = rgba[3];
   const cMax = Math.max(...rgbInZeroOneRange);
   const cMin = Math.min(...rgbInZeroOneRange);
