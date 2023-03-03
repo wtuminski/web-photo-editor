@@ -79,7 +79,7 @@ export const Filters: React.FC<Props> = ({
         <Grid
           container
           display="grid"
-          gridTemplateColumns="1fr 4rem"
+          gridTemplateColumns="1fr 5rem"
           alignItems="center"
           spacing={2}
         >
