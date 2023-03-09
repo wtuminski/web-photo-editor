@@ -1590,9 +1590,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@web-photo-editor/as-pixels-processor@0.1.0, @web-photo-editor/as-pixels-processor@workspace:pixelsProcessors/ASPixelsProcessor":
+"@web-photo-editor/as-pixels-processor@0.1.0, @web-photo-editor/as-pixels-processor@workspace:packages/pixelsProcessors/ASPixelsProcessor":
   version: 0.0.0-use.local
-  resolution: "@web-photo-editor/as-pixels-processor@workspace:pixelsProcessors/ASPixelsProcessor"
+  resolution: "@web-photo-editor/as-pixels-processor@workspace:packages/pixelsProcessors/ASPixelsProcessor"
   dependencies:
     "@as-pect/cli": ^8.0.1
     "@web-photo-editor/tsconfig": 0.1.0
@@ -1603,14 +1603,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@web-photo-editor/ts-pixels-processor@0.1.0, @web-photo-editor/ts-pixels-processor@workspace:pixelsProcessors/TSPixelsProcessor":
+"@web-photo-editor/ts-pixels-processor@0.1.0, @web-photo-editor/ts-pixels-processor@workspace:packages/pixelsProcessors/TSPixelsProcessor":
   version: 0.0.0-use.local
-  resolution: "@web-photo-editor/ts-pixels-processor@workspace:pixelsProcessors/TSPixelsProcessor"
+  resolution: "@web-photo-editor/ts-pixels-processor@workspace:packages/pixelsProcessors/TSPixelsProcessor"
   dependencies:
     "@babel/core": ^7.20.12
     "@vitest/coverage-c8": ^0.28.4
     "@web-photo-editor/tsconfig": 0.1.0
-    "@web-photo-editor/utils": 0.1.0
     eslint: ^8.31.0
     typescript: 4.9.5
     vite: ^4.1.1
@@ -1622,16 +1621,6 @@ __metadata:
 "@web-photo-editor/tsconfig@0.1.0, @web-photo-editor/tsconfig@workspace:packages/tsconfig":
   version: 0.0.0-use.local
   resolution: "@web-photo-editor/tsconfig@workspace:packages/tsconfig"
-  languageName: unknown
-  linkType: soft
-
-"@web-photo-editor/utils@0.1.0, @web-photo-editor/utils@workspace:packages/utils":
-  version: 0.0.0-use.local
-  resolution: "@web-photo-editor/utils@workspace:packages/utils"
-  dependencies:
-    "@web-photo-editor/tsconfig": 0.1.0
-    eslint: ^8.31.0
-    typescript: 4.9.5
   languageName: unknown
   linkType: soft
 
@@ -4318,7 +4307,6 @@ __metadata:
     "@web-photo-editor/as-pixels-processor": 0.1.0
     "@web-photo-editor/ts-pixels-processor": 0.1.0
     "@web-photo-editor/tsconfig": 0.1.0
-    "@web-photo-editor/utils": 0.1.0
     eslint: ^8.31.0
     react: ^18.2.0
     react-dom: ^18.2.0

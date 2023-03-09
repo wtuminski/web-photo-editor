@@ -9,8 +9,8 @@
   "packageManager": "yarn@3.4.1",
   "workspaces": [
     "frontend",
-    "pixelsProcessors/*",
-    "packages/*"
+    "packages/pixelsProcessors/*",
+    "packages/tsconfig"
   ],
   "scripts": {
     "compile": "yarn workspaces foreach -piv --topological-dev run compile",
