@@ -1,21 +1,25 @@
-import { createImageDataProcessor } from '@web-photo-editor/ts-image-data-processor';
-import {
-  CleanUpFunction,
-  ImageDataProcessor,
-  ImageFilters,
-  ImageFilterType,
-} from '@web-photo-editor/utils';
 import { Reducer, useEffect, useReducer, useRef, useState } from 'react';
 
 import { applyImageData, getImageData, scheduleImageDrawingInCanvas } from '~/Utils/canvas';
-import { ImageFile } from '~/Utils/types';
+import { createImageDataProcessor } from '~/Utils/imageDataProcessor';
+import { Observable } from '~/Utils/observable';
+import {
+  CleanUpFunction,
+  FiltersVariant,
+  ImageDataProcessor,
+  ImageFile,
+  ImageFiltersValues,
+  ImageFilterType,
+} from '~/Utils/types';
+
+import { useObservable } from './useObservable';
 
 interface FiltersReducerAction {
   filterType: ImageFilterType;
   filterValue: number;
 }
 
-const initialImageFilters: ImageFilters = {
+const initialImageFiltersValues: ImageFiltersValues = {
   grayscale: 0,
   inversion: 0,
   hue: 0,
@@ -23,36 +27,42 @@ const initialImageFilters: ImageFilters = {
   luminosity: 0,
 };
 
-const filtersReducer: Reducer<ImageFilters, FiltersReducerAction | 'resetFilters'> = (
+const filtersReducer: Reducer<ImageFiltersValues, FiltersReducerAction | 'resetFilters'> = (
   filters,
   action,
 ) =>
   action === 'resetFilters'
-    ? { ...initialImageFilters }
+    ? { ...initialImageFiltersValues }
     : { ...filters, [action.filterType]: action.filterValue };
 
 interface Props {
   canvas: HTMLCanvasElement | null;
   imageFile: ImageFile | null;
+  filtersVariantObservable: Observable<FiltersVariant>;
 }
 
 interface UseEditImageHandlers {
-  imageFilters: ImageFilters;
+  imageFiltersValues: ImageFiltersValues;
   setImageFilterValue: (filterValue: number) => void;
   selectedImageFilter: ImageFilterType;
   setSelectedImageFilter: (imageFilterType: ImageFilterType) => void;
   isImageFilterInProgress: boolean;
 }
 
-export const useEditImage = ({ canvas, imageFile }: Props): UseEditImageHandlers => {
+export const useEditImage = ({
+  canvas,
+  imageFile,
+  filtersVariantObservable,
+}: Props): UseEditImageHandlers => {
   const imageDataProcessor = useRef<ImageDataProcessor | null>(null);
-  const [imageFilters, dispatch] = useReducer(filtersReducer, initialImageFilters);
+  const [imageFiltersValues, dispatch] = useReducer(filtersReducer, initialImageFiltersValues);
 
   const [imageLoading, setImageLoading] = useState<'init' | 'loading' | 'ready'>('init');
   const [selectedImageFilter, setSelectedImageFilter] = useState<ImageFilterType>('grayscale');
   const [isImageFilterInProgress, setIsImageFilterInProgress] = useState<boolean>(false);
+  const filtersVariant = useObservable(filtersVariantObservable);
 
-  const currentFilterValue = imageFilters[selectedImageFilter];
+  const currentFilterValue = imageFiltersValues[selectedImageFilter];
 
   const applyCurrentImageFilter = (): CleanUpFunction | void => {
     if (!canvas || !imageDataProcessor.current || imageLoading !== 'ready') return undefined;
@@ -84,7 +94,10 @@ export const useEditImage = ({ canvas, imageFile }: Props): UseEditImageHandlers
   const onImageLoaded = (): CleanUpFunction | void => {
     if (imageLoading !== 'ready') return undefined;
     // eslint-disable-next-line immutable/no-mutation
-    imageDataProcessor.current = createImageDataProcessor(getImageData(canvas!)); // at this point canvas must be defined
+    imageDataProcessor.current = createImageDataProcessor(
+      getImageData(canvas!), // at this point canvas must be defined
+      filtersVariantObservable.get,
+    );
     return applyCurrentImageFilter();
   };
 
@@ -93,14 +106,14 @@ export const useEditImage = ({ canvas, imageFile }: Props): UseEditImageHandlers
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(onImageChange, [imageFile, canvas]);
   useEffect(onImageLoaded, [imageLoading]);
-  useEffect(onImageFilterUpdate, [currentFilterValue, selectedImageFilter]);
+  useEffect(onImageFilterUpdate, [currentFilterValue, selectedImageFilter, filtersVariant]);
   /* eslint-enable react-hooks/exhaustive-deps */
 
   //
   // handlers
   //
   return {
-    imageFilters,
+    imageFiltersValues,
     setImageFilterValue,
     selectedImageFilter,
     setSelectedImageFilter,

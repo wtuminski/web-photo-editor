@@ -4,7 +4,7 @@
     "./frontend",
     "./packages/utils",
     "./packages/tsvonfig",
-    "./imageDataProcessors/TSImageDataProcessor",
-    "./imageDataProcessors/ASImageDataProcessor",
+    "./pixelsProcessors/TSPixelsProcessor",
+    "./pixelsProcessors/ASPixelsProcessor",
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "name": "@web-photo-editor/as-image-data-processor",
+  "name": "@web-photo-editor/as-pixels-processor",
   "private": true,
   "version": "0.1.0",
   "type": "module",

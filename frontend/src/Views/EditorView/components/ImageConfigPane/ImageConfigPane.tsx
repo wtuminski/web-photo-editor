@@ -1,14 +1,15 @@
 import { Unstable_Grid2 as Grid } from '@mui/material';
-import { ImageFilters, ImageFilterType } from '@web-photo-editor/utils';
 import { ChangeEventHandler } from 'react';
+import { useStoreon } from 'storeon/react';
 
-import { ImageFile, ImageFileType } from '~/Utils/types';
+import { AppEvents, AppState, FiltersVariantUpdateEvent } from '~/appStore';
+import { ImageFile, ImageFileType, ImageFiltersValues, ImageFilterType } from '~/Utils/types';
 
 import { Controls } from '../Controls';
 import { Filters } from '../Filters';
 
 interface Props {
-  imageFilters: ImageFilters;
+  imageFiltersValues: ImageFiltersValues;
   selectedImageFilter: ImageFilterType;
   setSelectedImageFilter: (imageFilterType: ImageFilterType) => void;
   setImageFilterValue: (filterValue: number) => void;
@@ -19,7 +20,7 @@ interface Props {
 }
 
 export const ImageConfigPane: React.FC<Props> = ({
-  imageFilters,
+  imageFiltersValues,
   selectedImageFilter,
   setSelectedImageFilter,
   setImageFilterValue,
@@ -28,6 +29,8 @@ export const ImageConfigPane: React.FC<Props> = ({
   loadImage,
   isImageFilterInProgress,
 }) => {
+  const { filtersVariant, dispatch } = useStoreon<AppState, AppEvents>('filtersVariant');
+
   const onImageChange: ChangeEventHandler<HTMLInputElement> = e => {
     const image = e.target.files?.[0];
     if (image && isSupportedImageFile(image)) loadImage(image);
@@ -46,7 +49,7 @@ export const ImageConfigPane: React.FC<Props> = ({
       }}
     >
       <Filters
-        imageFilters={imageFilters}
+        imageFiltersValues={imageFiltersValues}
         selectedImageFilter={selectedImageFilter}
         setSelectedImageFilter={setSelectedImageFilter}
         setImageFilterValue={setImageFilterValue}
@@ -55,12 +58,8 @@ export const ImageConfigPane: React.FC<Props> = ({
       <Controls
         supportedImageFileTypes={supportedImageFileTypes}
         onImageChange={onImageChange}
-        // this is just a placeholder for now
-        // eslint-disable-next-line no-console
-        onFiltersReset={() => console.log('Reset filters')}
-        // this is just a placeholder for now
-        // eslint-disable-next-line no-console
-        onSaveImage={() => console.log('Save image')}
+        filtersVariant={filtersVariant}
+        setFiltersVariant={variant => dispatch(FiltersVariantUpdateEvent, variant)}
       />
     </Grid>
   );

@@ -10,15 +10,15 @@ import {
   Typography,
   Unstable_Grid2 as Grid,
 } from '@mui/material';
-import { ImageFilters, ImageFilterType } from '@web-photo-editor/utils';
 import { ChangeEvent } from 'react';
 
 import { isChangeEvent } from '~/Utils/typeGuards';
+import { ImageFiltersValues, ImageFilterType } from '~/Utils/types';
 
 import styles from './Filters.module.scss';
 
 interface Props {
-  imageFilters: ImageFilters;
+  imageFiltersValues: ImageFiltersValues;
   selectedImageFilter: ImageFilterType;
   setSelectedImageFilter: (imageFilterType: ImageFilterType) => void;
   setImageFilterValue: (filterValue: number) => void;
@@ -29,13 +29,13 @@ const MIN_FILTER_VALUE = -100;
 const MAX_FILTER_VALUE = 100;
 
 export const Filters: React.FC<Props> = ({
-  imageFilters,
+  imageFiltersValues,
   selectedImageFilter,
   setSelectedImageFilter,
   setImageFilterValue,
   isImageFilterInProgress,
 }) => {
-  const selectedFilterValue = selectedImageFilter ? imageFilters[selectedImageFilter] : undefined;
+  const selectedFilterValue = imageFiltersValues[selectedImageFilter];
 
   const onFilterTypeChange = (event: SelectChangeEvent) =>
     setSelectedImageFilter(event.target.value as ImageFilterType);
@@ -65,7 +65,7 @@ export const Filters: React.FC<Props> = ({
           value={selectedImageFilter}
           onChange={onFilterTypeChange}
         >
-          {Object.keys(imageFilters).map(filterType => (
+          {Object.keys(imageFiltersValues).map(filterType => (
             <MenuItem value={filterType} key={filterType}>
               {filterType}
             </MenuItem>

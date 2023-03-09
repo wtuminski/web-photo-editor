@@ -8,12 +8,18 @@ import {
 } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import React, { useMemo } from 'react';
+import { createStoreon } from 'storeon';
+import { StoreContext } from 'storeon/react';
 
 import { EditorView } from '~/Views/EditorView';
 
+import { AppEvents, AppState, filtersStoreonModule, initFiltersModule } from './appStore';
 import { Header } from './Components/Header';
 
 type ExtendedTheme = ReturnType<typeof extendTheme>;
+
+const store = createStoreon<AppState, AppEvents>([filtersStoreonModule]);
+const filtersModule = initFiltersModule(store);
 
 export const App: React.FC = () => {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
@@ -50,8 +56,10 @@ export const App: React.FC = () => {
           flexWrap: 'nowrap',
         }}
       >
-        <Header />
-        <EditorView />
+        <StoreContext.Provider value={filtersModule.store}>
+          <Header />
+          <EditorView filtersVariantObservable={filtersModule.filtersVariantObservable} />
+        </StoreContext.Provider>
       </Grid>
     </CSSVarsProvider>
   );

@@ -1,12 +1,9 @@
-//
-// types
-
 import type { RGBAPixel } from '@web-photo-editor/utils';
 
 //
-type RawMethod = (imageData: ImageData, filterValue: number) => ImageData;
-type BoundMethod = (filterValue: number) => ReturnType<RawMethod>;
-type ImageFilter = (pixels: Uint8ClampedArray, filterValue: number) => Uint8ClampedArray;
+// types
+//
+export type ImageFilter = (pixels: Uint8ClampedArray, filterValue: number) => Uint8ClampedArray;
 
 //
 // constants
@@ -52,24 +49,6 @@ export const mapPixles = (
   return newData;
 };
 
-export const copyImageData = (imageData: ImageData, replacements?: Partial<ImageData>): ImageData =>
-  new ImageData(
-    replacements?.data ?? imageData.data,
-    replacements?.width ?? imageData.width,
-    replacements?.height ?? imageData.height,
-    { colorSpace: replacements?.colorSpace ?? imageData.colorSpace },
-  );
-
-export const bindMethodsWithImageData = <Key extends string>(
-  module: Record<Key, RawMethod>,
-  imageData: ImageData,
-): Record<Key, BoundMethod> =>
-  Object.fromEntries(
-    Object.entries<RawMethod>(module).map(
-      ([key, method]) => [key, method.bind(null, imageData)] as const,
-    ),
-  ) as Record<Key, BoundMethod>;
-
 export const calculateFilterRate = (filterValue: number): number => 1 + filterValue / 100;
 export const average = (values: number[]): number =>
   values.reduce((sum, currentValue) => sum + currentValue, 0) / values.length;
@@ -83,10 +62,3 @@ export const adjustValueToRange = ({
   max: number;
   min: number;
 }): number => Math.max(min, Math.min(max, value));
-
-export const withApplyFilterOnImageDataCopy =
-  (imageFilter: ImageFilter) =>
-  (imageData: ImageData, filterValue: number): ImageData =>
-    copyImageData(imageData, { data: imageFilter(imageData.data, filterValue) });
-
-export type { ImageFilter };

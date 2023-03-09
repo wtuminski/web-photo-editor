@@ -1590,9 +1590,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@web-photo-editor/as-image-data-processor@0.1.0, @web-photo-editor/as-image-data-processor@workspace:imageDataProcessors/ASImageDataProcessor":
+"@web-photo-editor/as-pixels-processor@0.1.0, @web-photo-editor/as-pixels-processor@workspace:pixelsProcessors/ASPixelsProcessor":
   version: 0.0.0-use.local
-  resolution: "@web-photo-editor/as-image-data-processor@workspace:imageDataProcessors/ASImageDataProcessor"
+  resolution: "@web-photo-editor/as-pixels-processor@workspace:pixelsProcessors/ASPixelsProcessor"
   dependencies:
     "@as-pect/cli": ^8.0.1
     "@web-photo-editor/tsconfig": 0.1.0
@@ -1603,9 +1603,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@web-photo-editor/ts-image-data-processor@0.1.0, @web-photo-editor/ts-image-data-processor@workspace:imageDataProcessors/TSImageDataProcessor":
+"@web-photo-editor/ts-pixels-processor@0.1.0, @web-photo-editor/ts-pixels-processor@workspace:pixelsProcessors/TSPixelsProcessor":
   version: 0.0.0-use.local
-  resolution: "@web-photo-editor/ts-image-data-processor@workspace:imageDataProcessors/TSImageDataProcessor"
+  resolution: "@web-photo-editor/ts-pixels-processor@workspace:pixelsProcessors/TSPixelsProcessor"
   dependencies:
     "@babel/core": ^7.20.12
     "@vitest/coverage-c8": ^0.28.4
@@ -4315,8 +4315,8 @@ __metadata:
     "@types/react-dom": ^18.0.9
     "@vitejs/plugin-react-swc": ^3.0.0
     "@vitest/coverage-c8": ^0.28.4
-    "@web-photo-editor/as-image-data-processor": 0.1.0
-    "@web-photo-editor/ts-image-data-processor": 0.1.0
+    "@web-photo-editor/as-pixels-processor": 0.1.0
+    "@web-photo-editor/ts-pixels-processor": 0.1.0
     "@web-photo-editor/tsconfig": 0.1.0
     "@web-photo-editor/utils": 0.1.0
     eslint: ^8.31.0
@@ -4324,6 +4324,7 @@ __metadata:
     react-dom: ^18.2.0
     sass: ^1.57.1
     serve: ^14.2.0
+    storeon: ^3.1.5
     stylelint: ^14.16.1
     stylelint-config-prettier-scss: ^0.0.1
     stylelint-config-standard-scss: ^6.1.0
@@ -8809,6 +8810,21 @@ __metadata:
   dependencies:
     internal-slot: ^1.0.4
   checksum: c4158d6188aac510d9e92925b58709207bd94699e9c31186a040c80932a687f84a51356b5895e6dc72710aad83addb9411c22171832c9ae0e6e11b7d61b0dfb9
+  languageName: node
+  linkType: hard
+
+"storeon@npm:^3.1.5":
+  version: 3.1.5
+  resolution: "storeon@npm:3.1.5"
+  peerDependencies:
+    preact: ">=10.0.0"
+    react: ">=16.8.0"
+  peerDependenciesMeta:
+    preact:
+      optional: true
+    react:
+      optional: true
+  checksum: c16dce978e96b016756cc11b8419bfa1d9bcb16a5fd4a53926c97ae560302e896b6376b7dd50de70ec186296b93550ee0f4557b4cad9ffb3fa26ede1f44a1616
   languageName: node
   linkType: hard
 

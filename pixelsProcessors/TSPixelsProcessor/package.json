@@ -1,5 +1,5 @@
 {
-  "name": "@web-photo-editor/ts-image-data-processor",
+  "name": "@web-photo-editor/ts-pixels-processor",
   "private": true,
   "version": "0.1.0",
   "type": "module",

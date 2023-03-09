@@ -1,8 +1,6 @@
-import { CleanUpFunction } from '@web-photo-editor/utils';
-
 import { DeferredPromise } from './DeferredPromise';
 import { memoize } from './memoize';
-import { ImageFile } from './types';
+import { CleanUpFunction, ImageFile } from './types';
 
 const get2dContext = memoize((canvas: HTMLCanvasElement): CanvasRenderingContext2D => {
   const context = canvas.getContext('2d');
