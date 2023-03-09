@@ -1,17 +1,9 @@
 # web-photo-editor
 
-## Requirement:
-
-- yarn 3
-  - npm i -g yarn
-  - yarn set version berry
-  - yarn
-- yarn workspace-tools plugin
-  - yarn plugin import workspace-tools
-
 ## How to use:
-
-- dev: `yarn start:dev`
+1. Prepare dependencies: `yarn`
+2. Run
+- dev: `yarn dev`
 - start:
   1. `yarn build`
   2. `yarn start`
