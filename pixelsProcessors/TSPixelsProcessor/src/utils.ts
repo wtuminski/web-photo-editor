@@ -1,14 +1,16 @@
-import type { RGBAPixel } from '@web-photo-editor/utils';
-
 //
 // types
 //
+export type RGBAPixel = [red: number, green: number, blue: number, alpha: number];
+export type HSLAPixel = [hue: number, saturation: number, luminosity: number, alpha: number];
 export type ImageFilter = (pixels: Uint8ClampedArray, filterValue: number) => Uint8ClampedArray;
 
 //
 // constants
 //
 const PIXEL_LENGTH = 4;
+export const MAX_RGB_VALUE = 255;
+export const MIN_RGB_VALUE = 0;
 
 //
 // private

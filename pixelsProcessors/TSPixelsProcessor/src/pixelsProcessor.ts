@@ -1,7 +1,13 @@
-import { MAX_RGB_VALUE, MIN_RGB_VALUE } from '@web-photo-editor/utils';
-
 import { hslaToRgba, rgbaToHsla } from './colorConverters';
-import { adjustValueToRange, average, calculateFilterRate, ImageFilter, mapPixles } from './utils';
+import {
+  adjustValueToRange,
+  average,
+  calculateFilterRate,
+  ImageFilter,
+  mapPixles,
+  MAX_RGB_VALUE,
+  MIN_RGB_VALUE,
+} from './utils';
 
 export const grayscale: ImageFilter = (pixels, filterValue) =>
   mapPixles(pixels, ([r, g, b, a]) => {

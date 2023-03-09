@@ -11,3 +11,5 @@ export type ImageFiltersValues = Record<ImageFilterType, number>;
 export type FiltersVariant = 'ts' | 'as';
 
 export type ImageDataProcessor = Record<ImageFilterType, (filterValue: number) => ImageData>;
+
+export type CleanUpFunction = VoidFunction;

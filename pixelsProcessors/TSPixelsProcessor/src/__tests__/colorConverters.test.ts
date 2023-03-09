@@ -1,7 +1,7 @@
-import { HSLAPixel, RGBAPixel } from '@web-photo-editor/utils';
 import { describe, expect, test } from 'vitest';
 
 import { hslaToRgba, rgbaToHsla } from '../colorConverters';
+import { HSLAPixel, RGBAPixel } from '../utils';
 
 const colors: [rgba: RGBAPixel, hsla: HSLAPixel][] = [
   [

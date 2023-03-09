@@ -1,4 +1,4 @@
-import { HSLAPixel, MAX_RGB_VALUE, RGBAPixel } from '@web-photo-editor/utils';
+import { HSLAPixel, MAX_RGB_VALUE, RGBAPixel } from './utils';
 
 const round = (v: number, decimals: number = 0) => Math.round(v * 10 ** decimals) / 10 ** decimals;
 
