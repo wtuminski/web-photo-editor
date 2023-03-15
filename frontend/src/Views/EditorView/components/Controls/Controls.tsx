@@ -27,8 +27,9 @@ export const Controls: React.FC<Props> = ({
     <Grid
       container
       sx={{
-        justifyContent: 'center',
-        alignContent: 'flex-end',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
         gap: 2,
       }}
     >

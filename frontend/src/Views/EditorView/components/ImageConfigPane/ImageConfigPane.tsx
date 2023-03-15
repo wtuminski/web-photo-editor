@@ -40,8 +40,7 @@ export const ImageConfigPane: React.FC<Props> = ({
     <Grid
       container
       sx={{
-        justifyContent: 'center',
-        alignItems: 'space-between',
+        flexDirection: 'column',
         py: 4,
         px: 2,
         borderRight: '1px solid',
