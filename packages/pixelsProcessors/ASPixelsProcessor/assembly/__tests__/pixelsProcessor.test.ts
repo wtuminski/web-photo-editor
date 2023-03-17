@@ -1,5 +1,12 @@
 import { grayscale, hue, inversion, luminosity, saturation } from '../pixelsProcessor';
 import {
+  grayscale as grayscaleInline,
+  hue as hueInline,
+  inversion as inversionInline,
+  luminosity as luminosityInline,
+  saturation as saturationInline,
+} from '../pixelsProcessorInline';
+import {
   grayscaleOutputStartingIndex,
   hueOutputStartingIndex,
   inversionOutputStartingIndex,
@@ -33,8 +40,24 @@ describe('pixelsProcessor', () => {
     ).toBe(0);
   });
 
+  test('grayscaleInline', () => {
+    grayscaleInline(numberOfRgbaPixels, 0);
+
+    expect(
+      memory.compare(outputStartingIndex, grayscaleOutputStartingIndex, numberOfRgbaPixels),
+    ).toBe(0);
+  });
+
   test('inversion', () => {
     inversion(numberOfRgbaPixels, 0);
+
+    expect(
+      memory.compare(outputStartingIndex, inversionOutputStartingIndex, numberOfRgbaPixels),
+    ).toBe(0);
+  });
+
+  test('inversionInline', () => {
+    inversionInline(numberOfRgbaPixels, 0);
 
     expect(
       memory.compare(outputStartingIndex, inversionOutputStartingIndex, numberOfRgbaPixels),
@@ -47,6 +70,12 @@ describe('pixelsProcessor', () => {
     expect(memory.compare(outputStartingIndex, hueOutputStartingIndex, numberOfRgbaPixels)).toBe(0);
   });
 
+  test('hueInline', () => {
+    hueInline(numberOfRgbaPixels, 50);
+
+    expect(memory.compare(outputStartingIndex, hueOutputStartingIndex, numberOfRgbaPixels)).toBe(0);
+  });
+
   test('saturation', () => {
     saturation(numberOfRgbaPixels, 50);
 
@@ -55,8 +84,24 @@ describe('pixelsProcessor', () => {
     ).toBe(0);
   });
 
+  test('saturationInline', () => {
+    saturationInline(numberOfRgbaPixels, 50);
+
+    expect(
+      memory.compare(outputStartingIndex, saturationOutputStartingIndex, numberOfRgbaPixels),
+    ).toBe(0);
+  });
+
   test('luminosity', () => {
     luminosity(numberOfRgbaPixels, 50);
+
+    expect(
+      memory.compare(outputStartingIndex, luminosityOutputStartingIndex, numberOfRgbaPixels),
+    ).toBe(0);
+  });
+
+  test('luminosityInline', () => {
+    luminosityInline(numberOfRgbaPixels, 50);
 
     expect(
       memory.compare(outputStartingIndex, luminosityOutputStartingIndex, numberOfRgbaPixels),
