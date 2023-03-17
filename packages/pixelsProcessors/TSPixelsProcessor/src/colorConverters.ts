@@ -1,4 +1,4 @@
-import { HSLAPixel, MAX_RGB_VALUE, RGBAPixel } from './utils';
+import { adjustValueToRange, HSLAPixel, MAX_RGB_VALUE, MIN_RGB_VALUE, RGBAPixel } from './utils';
 
 const round = (v: number, decimals: number = 0) => Math.round(v * 10 ** decimals) / 10 ** decimals;
 
@@ -52,7 +52,11 @@ export const hslaToRgba = ([h, s, l, alpha]: HSLAPixel): RGBAPixel => {
   const calculateColor = (colorFactor: number) => {
     const color =
       l - a * Math.max(-1, Math.min(k(colorFactor) - 3, Math.min(9 - k(colorFactor), 1)));
-    return round(color * 255);
+    return adjustValueToRange({
+      max: MAX_RGB_VALUE,
+      min: MIN_RGB_VALUE,
+      value: round(color * 255),
+    });
   };
   return [calculateColor(0), calculateColor(8), calculateColor(4), alpha];
 };

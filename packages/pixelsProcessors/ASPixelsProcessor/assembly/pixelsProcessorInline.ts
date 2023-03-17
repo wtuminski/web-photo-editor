@@ -97,7 +97,7 @@ function hsl(valueToUpdate: u8, numberOfRgbaPixels: u32, filterValue: i8): void 
       throw new Error('value should be grater than or egaul to -6 Or smaller than or egual to 6');
 
     const h0: f32 = hueBase * <f32>60;
-    const h = h0 < 0 ? h0 + <f32>360 : h0;
+    const h = Mathf.round(h0 < 0 ? h0 + <f32>360 : h0);
 
     const l = Mathf.round(((cMax + cMin) / <f32>2) * 10 ** 2) / 10 ** 2;
     const s =

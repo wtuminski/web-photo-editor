@@ -8,9 +8,18 @@ export type ImageFilter = (pixels: Uint8ClampedArray, filterValue: number) => Ui
 //
 // constants
 //
-const PIXEL_LENGTH = 4;
+export const PIXEL_LENGTH = 4;
 export const MAX_RGB_VALUE = 255;
 export const MIN_RGB_VALUE = 0;
+export const MIN_HUE = 0;
+export const MAX_HUE = 360;
+export const MIN_LUMINOSITY = 0;
+export const MAX_LUMINOSITY = 1;
+export const MIN_SATURATION = 0;
+export const MAX_SATURATION = 1;
+export const RED_COLOR_RATE = 0;
+export const GREEN_COLOR_RATE = 8;
+export const BLUE_COLOR_RATE = 4;
 
 //
 // private

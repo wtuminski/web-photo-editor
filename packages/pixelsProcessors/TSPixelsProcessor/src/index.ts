@@ -1,1 +1,1 @@
-export * from './pixelsProcessor';
+export * from './pixelsProcessorInline';
