@@ -69,17 +69,17 @@ const colors: [rgba: RGBAPixel, hsla: HSLAPixel][] = [
     [240, 1, 0.25, 0.3],
   ],
   [
-    [33, 212, 45, 1],
-    [124, 0.73, 0.48, 1],
+    [12, 212, 45, 1],
+    [129.9, 0.89, 0.44, 1],
   ],
 ];
 
 describe('colorConverters', () => {
   test.each(colors)('rgbaToHsla should convert rgba: %j to hsla: %j', (rgba, hsla) => {
-    expect(rgbaToHsla(rgba)).toEqual(hsla);
+    expect(rgbaToHsla(rgba)).toStrictEqual(hsla);
   });
 
   test.each(colors)('hslaToRgba should convert rgba: %j from hsla: %j', (rgba, hsla) => {
-    expect(hslaToRgba(hsla)).toEqual(rgba);
+    expect(hslaToRgba(hsla)).toStrictEqual(rgba);
   });
 });

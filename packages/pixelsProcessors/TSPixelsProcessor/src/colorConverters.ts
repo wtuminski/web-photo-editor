@@ -18,7 +18,7 @@ const calculateHue = (rgba: RGBAPixel, cMax: number, delta: number): number => {
       value * 60,
     );
 
-  return round(convertToDegrees(calculateHueBase()));
+  return convertToDegrees(calculateHueBase());
 };
 
 const calculateSaturation = (luminosity: number, delta: number): number => {
