@@ -113,8 +113,9 @@ const hsl = (
     if (hueBase < -6 || hueBase > 6)
       throw new Error('value should be grater than or egaul to -6 Or smaller than or egual to 6');
 
+    // convert to degrees
     const h0 = hueBase * 60;
-    const h = Math.round(h0 < 0 ? h0 + 360 : h0);
+    const h = h0 < 0 ? h0 + 360 : h0;
 
     const l = Math.round(((cMax + cMin) / 2) * 10 ** 2) / 10 ** 2;
     const s =
@@ -142,11 +143,11 @@ const hsl = (
     let newB = 0;
 
     // convert hsla to rgba
+    const aRate = newS * Math.min(newL, 1 - newL);
     for (let colorIndex = 0; colorIndex < 4; colorIndex += 1) {
       const colorRate =
         // eslint-disable-next-line no-nested-ternary
         colorIndex === 0 ? RED_COLOR_RATE : colorIndex === 1 ? GREEN_COLOR_RATE : BLUE_COLOR_RATE;
-      const aRate = newS * Math.min(newL, 1 - newL);
       const k = (colorRate + newH / 30) % 12;
       const colorInZeroOneRange = newL - aRate * Math.max(-1, Math.min(k - 3, Math.min(9 - k, 1)));
       const color = Math.round(colorInZeroOneRange * 255);

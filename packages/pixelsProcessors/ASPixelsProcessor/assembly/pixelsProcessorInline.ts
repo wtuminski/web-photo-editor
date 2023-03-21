@@ -15,6 +15,7 @@ import {
 
 export function grayscale(numberOfRgbaPixels: u32, filterValue: i8): void {
   const filterRate = <f32>1 + <f32>filterValue / <f32>100;
+
   for (let currentIndex: u32 = 0; currentIndex < numberOfRgbaPixels; currentIndex += PIXEL_LENGTH) {
     const outputStartingIndex = currentIndex + numberOfRgbaPixels;
     const r = load<u8>(currentIndex) as f32;
@@ -34,6 +35,7 @@ export function grayscale(numberOfRgbaPixels: u32, filterValue: i8): void {
 
 export function inversion(numberOfRgbaPixels: u32, filterValue: i8): void {
   const filterRate = <f32>1 + <f32>filterValue / <f32>100;
+
   for (let currentIndex: u32 = 0; currentIndex < numberOfRgbaPixels; currentIndex += PIXEL_LENGTH) {
     const outputStartingIndex = currentIndex + numberOfRgbaPixels;
     const r = load<u8>(currentIndex);
@@ -65,6 +67,7 @@ export function inversion(numberOfRgbaPixels: u32, filterValue: i8): void {
 function hsl(valueToUpdate: u8, numberOfRgbaPixels: u32, filterValue: i8): void {
   if (valueToUpdate > 2) throw new Error('valueToUpdate should be 0, 1 or 2');
   const filterRate = <f32>1 + <f32>filterValue / <f32>100;
+
   for (let currentIndex: u32 = 0; currentIndex < numberOfRgbaPixels; currentIndex += PIXEL_LENGTH) {
     const outputStartingIndex = currentIndex + numberOfRgbaPixels;
     const r = load<u8>(currentIndex);
@@ -96,8 +99,9 @@ function hsl(valueToUpdate: u8, numberOfRgbaPixels: u32, filterValue: i8): void 
     if (hueBase < -6 || hueBase > 6)
       throw new Error('value should be grater than or egaul to -6 Or smaller than or egual to 6');
 
+    // convert hueBase to degrees
     const h0: f32 = hueBase * <f32>60;
-    const h = Mathf.round(h0 < 0 ? h0 + <f32>360 : h0);
+    const h = h0 < 0 ? h0 + <f32>360 : h0;
 
     const l = Mathf.round(((cMax + cMin) / <f32>2) * 10 ** 2) / 10 ** 2;
     const s =
@@ -128,11 +132,11 @@ function hsl(valueToUpdate: u8, numberOfRgbaPixels: u32, filterValue: i8): void 
     let newB = 0;
 
     // convert hsla to rgba
+    const aRate: f32 = newS * min(newL, <f32>1 - newL);
     for (let colorIndex = 0; colorIndex < 4; colorIndex += 1) {
       const colorRate =
         // eslint-disable-next-line no-nested-ternary
         colorIndex === 0 ? RED_COLOR_RATE : colorIndex === 1 ? GREEN_COLOR_RATE : BLUE_COLOR_RATE;
-      const aRate: f32 = newS * min(newL, <f32>1 - newL);
       const k: f32 = (colorRate + newH / <f32>30) % <f32>12;
       const colorInZeroOneRange: f32 =
         newL - aRate * max(<f32>-1, min(k - <f32>3, min(<f32>9 - k, <f32>1)));
