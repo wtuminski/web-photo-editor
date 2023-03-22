@@ -8,7 +8,7 @@ export type ImageFilterType = 'grayscale' | 'inversion' | 'saturation' | 'lumino
 
 export type ImageFiltersValues = Record<ImageFilterType, number>;
 
-export type FiltersVariant = 'ts' | 'as';
+export type FiltersVariant = 'ts' | 'as' | 'asSIMD';
 
 export type ImageDataProcessor = Record<ImageFilterType, (filterValue: number) => ImageData>;
 

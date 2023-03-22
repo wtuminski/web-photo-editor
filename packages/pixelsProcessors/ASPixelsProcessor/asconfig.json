@@ -1,5 +1,4 @@
 {
-  "entries": ["./assembly/index.ts"],
   "targets": {
     "debug": {
       "outFile": "dist/debug/index.wasm",
@@ -8,8 +7,6 @@
       "debug": true
     },
     "release": {
-      "outFile": "dist/release/index.wasm",
-      "textFile": "dist/release/index.wat",
       "sourceMap": true,
       "optimizeLevel": 3,
       "shrinkLevel": 0,

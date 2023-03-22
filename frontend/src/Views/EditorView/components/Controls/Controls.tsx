@@ -41,10 +41,13 @@ export const Controls: React.FC<Props> = ({
         aria-label="select filters variant"
         sx={{ mb: 2 }}
       >
-        <ToggleButton value="as">
+        <ToggleButton value={'as' satisfies FiltersVariant}>
           <img src="as-logo-32x32.png" alt="AssemblyScript" width={32} height={32} />
         </ToggleButton>
-        <ToggleButton value="ts">
+        <ToggleButton value={'asSIMD' satisfies FiltersVariant}>
+          <img src="as-simd-logo-32x32.png" alt="AssemblyScript with SIMD" width={32} height={32} />
+        </ToggleButton>
+        <ToggleButton value={'ts' satisfies FiltersVariant}>
           <img src="ts-logo-32x32.png" alt="TypeScript" width={32} height={32} />
         </ToggleButton>
       </ToggleButtonGroup>

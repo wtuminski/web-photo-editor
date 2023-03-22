@@ -5,14 +5,28 @@
   "type": "module",
   "packageManager": "yarn@3.4.1",
   "exports": {
-    ".": "./dist/release/index.js"
+    ".": "./dist/release/index.js",
+    "./inline": "./dist/releaseInline/index.js",
+    "./simd": "./dist/releaseSimd/index.js"
   },
   "types": "./dist/release/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "inline": [
+        "./dist/releaseInline/index.d.ts"
+      ],
+      "simd": [
+        "./dist/releaseSimd/index.d.ts"
+      ]
+    }
+  },
   "scripts": {
-    "compile": "asc --noEmit",
-    "build:debug": "asc --target debug",
-    "build:release": "asc --target release",
-    "build": "yarn build:debug & yarn build:release",
+    "compile": "asc assembly/index.ts --noEmit",
+    "build:debug": "asc assembly/index.ts --target debug",
+    "build:release": "asc assembly/index.ts --target release --outFile dist/release/index.wasm",
+    "build:release-inline": "asc assembly/pixelsProcessorInline.ts --target release --outFile dist/releaseInline/index.wasm",
+    "build:release-simd": "asc assembly/pixelsProcessorSIMD.ts --target release --outFile dist/releaseSIMD/index.wasm",
+    "build": "yarn build:debug & yarn build:release & yarn build:release-inline & yarn build:release-simd",
     "dev": "chokidar \"assembly/**/*.ts\"  --initial --command \"yarn build:release\"",
     "test": "asp --summary",
     "test:verbose": "asp --verbose",

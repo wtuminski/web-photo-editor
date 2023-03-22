@@ -1,6 +1,6 @@
-import * as asPixelsProcessor from '@web-photo-editor/as-pixels-processor';
 import * as tsFilters from '@web-photo-editor/ts-pixels-processor';
 
+import { getASPixelsProcessor } from './getASPixelsProcessor';
 import { FiltersVariant, ImageDataProcessor, ImageFilterType } from './types';
 
 //
@@ -17,23 +17,30 @@ type ImageFilter = (pixels: Uint8ClampedArray, filterValue: number) => Uint8Clam
 
 const bytesPerPage = 64 * 1024;
 const operationMemorySizeRatio = 2;
-const prepareMemoryBinding = (numerOfBytes: number): Uint8ClampedArray => {
+const asPixelsProcessor = await getASPixelsProcessor();
+
+const prepareMemoryBinding = (numberOfBytes: number): Uint8ClampedArray => {
   const { memory } = asPixelsProcessor;
-  const expectedMemorySize = Math.ceil(numerOfBytes / bytesPerPage) * operationMemorySizeRatio;
-  if (memory.buffer.byteLength < numerOfBytes * operationMemorySizeRatio)
+  const expectedMemorySize = Math.ceil(numberOfBytes / bytesPerPage) * operationMemorySizeRatio;
+  if (memory.buffer.byteLength < numberOfBytes * operationMemorySizeRatio)
     memory.grow(expectedMemorySize);
 
   return new Uint8ClampedArray(memory.buffer);
 };
 
 const getASImageFilter =
-  (filterType: ImageFilterType): ImageFilter =>
+  (filterType: ImageFilterType, filtersVariant: FiltersVariant): ImageFilter =>
   (pixels, filterValue) => {
     const numberOfRgbaPixels = pixels.length;
     const memoryBinding = prepareMemoryBinding(numberOfRgbaPixels);
 
     memoryBinding.set(pixels);
-    asPixelsProcessor[filterType](numberOfRgbaPixels, filterValue);
+    if (filtersVariant === 'as') {
+      asPixelsProcessor[filterType](numberOfRgbaPixels, filterValue);
+    }
+    if (filtersVariant === 'asSIMD') {
+      asPixelsProcessor[`${filterType}SIMD`](numberOfRgbaPixels, filterValue);
+    }
 
     return memoryBinding.subarray(
       numberOfRgbaPixels,
@@ -78,11 +85,14 @@ export const createImageDataProcessor = (
 ): ImageDataProcessor => {
   const withFilterVersions =
     (filterType: ImageFilterType): ImageFilter =>
-    (pixles, filterValue) =>
-      (getFiltersVariant() === 'ts' ? tsFilters[filterType] : getASImageFilter(filterType))(
-        pixles,
-        filterValue,
-      );
+    (pixles, filterValue) => {
+      const filtersVariant = getFiltersVariant();
+      return (
+        filtersVariant === 'ts'
+          ? tsFilters[filterType]
+          : getASImageFilter(filterType, filtersVariant)
+      )(pixles, filterValue);
+    };
 
   return {
     ...bindMethodsWithImageData<ImageFilterType>(
