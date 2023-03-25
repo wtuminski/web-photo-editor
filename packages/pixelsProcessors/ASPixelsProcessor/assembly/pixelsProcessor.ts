@@ -26,7 +26,11 @@ import {
 } from './utils';
 
 export function grayscale(numberOfRgbaPixels: u32, filterValue: u8): void {
-  for (let currentIndex: u32 = 0; currentIndex < numberOfRgbaPixels; currentIndex += PIXEL_LENGTH) {
+  for (
+    let currentIndex: usize = 0;
+    currentIndex < numberOfRgbaPixels;
+    currentIndex += PIXEL_LENGTH
+  ) {
     const outputStartingIndex = currentIndex + numberOfRgbaPixels;
     const r = memoryGet(currentIndex);
     const g = memoryGet(currentIndex + 1);
@@ -44,7 +48,11 @@ export function grayscale(numberOfRgbaPixels: u32, filterValue: u8): void {
 }
 
 export function inversion(numberOfRgbaPixels: u32, filterValue: u8): void {
-  for (let currentIndex: u32 = 0; currentIndex < numberOfRgbaPixels; currentIndex += PIXEL_LENGTH) {
+  for (
+    let currentIndex: usize = 0;
+    currentIndex < numberOfRgbaPixels;
+    currentIndex += PIXEL_LENGTH
+  ) {
     const outputStartingIndex = currentIndex + numberOfRgbaPixels;
     const r = memoryGet(currentIndex);
     const g = memoryGet(currentIndex + 1);
@@ -59,7 +67,11 @@ export function inversion(numberOfRgbaPixels: u32, filterValue: u8): void {
 }
 
 export function hue(numberOfRgbaPixels: u32, filterValue: u8): void {
-  for (let currentIndex: u32 = 0; currentIndex < numberOfRgbaPixels; currentIndex += PIXEL_LENGTH) {
+  for (
+    let currentIndex: usize = 0;
+    currentIndex < numberOfRgbaPixels;
+    currentIndex += PIXEL_LENGTH
+  ) {
     const outputStartingIndex = currentIndex + numberOfRgbaPixels;
     const r = memoryGet(currentIndex);
     const g = memoryGet(currentIndex + 1);
@@ -100,7 +112,11 @@ export function hue(numberOfRgbaPixels: u32, filterValue: u8): void {
 }
 
 export function saturation(numberOfRgbaPixels: u32, filterValue: u8): void {
-  for (let currentIndex: u32 = 0; currentIndex < numberOfRgbaPixels; currentIndex += PIXEL_LENGTH) {
+  for (
+    let currentIndex: usize = 0;
+    currentIndex < numberOfRgbaPixels;
+    currentIndex += PIXEL_LENGTH
+  ) {
     const outputStartingIndex = currentIndex + numberOfRgbaPixels;
     const r = memoryGet(currentIndex);
     const g = memoryGet(currentIndex + 1);
@@ -141,7 +157,11 @@ export function saturation(numberOfRgbaPixels: u32, filterValue: u8): void {
 }
 
 export function luminosity(numberOfRgbaPixels: u32, filterValue: u8): void {
-  for (let currentIndex: u32 = 0; currentIndex < numberOfRgbaPixels; currentIndex += PIXEL_LENGTH) {
+  for (
+    let currentIndex: usize = 0;
+    currentIndex < numberOfRgbaPixels;
+    currentIndex += PIXEL_LENGTH
+  ) {
     const outputStartingIndex = currentIndex + numberOfRgbaPixels;
     const r = memoryGet(currentIndex);
     const g = memoryGet(currentIndex + 1);

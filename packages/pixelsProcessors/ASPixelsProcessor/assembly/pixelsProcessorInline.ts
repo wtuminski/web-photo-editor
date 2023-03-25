@@ -16,7 +16,11 @@ import {
 export function grayscale(numberOfRgbaPixels: u32, filterValue: i8): void {
   const filterRate = <f32>1 + <f32>filterValue / <f32>100;
 
-  for (let currentIndex: u32 = 0; currentIndex < numberOfRgbaPixels; currentIndex += PIXEL_LENGTH) {
+  for (
+    let currentIndex: usize = 0;
+    currentIndex < numberOfRgbaPixels;
+    currentIndex += PIXEL_LENGTH
+  ) {
     const outputStartingIndex = currentIndex + numberOfRgbaPixels;
     const r = load<u8>(currentIndex) as f32;
     const g = load<u8>(currentIndex + 1) as f32;
@@ -36,7 +40,11 @@ export function grayscale(numberOfRgbaPixels: u32, filterValue: i8): void {
 export function inversion(numberOfRgbaPixels: u32, filterValue: i8): void {
   const filterRate = <f32>1 + <f32>filterValue / <f32>100;
 
-  for (let currentIndex: u32 = 0; currentIndex < numberOfRgbaPixels; currentIndex += PIXEL_LENGTH) {
+  for (
+    let currentIndex: usize = 0;
+    currentIndex < numberOfRgbaPixels;
+    currentIndex += PIXEL_LENGTH
+  ) {
     const outputStartingIndex = currentIndex + numberOfRgbaPixels;
     const r = load<u8>(currentIndex);
     const g = load<u8>(currentIndex + 1);
@@ -68,7 +76,11 @@ function hsl(valueToUpdate: u8, numberOfRgbaPixels: u32, filterValue: i8): void 
   if (valueToUpdate > 2) throw new Error('valueToUpdate should be 0, 1 or 2');
   const filterRate = <f32>1 + <f32>filterValue / <f32>100;
 
-  for (let currentIndex: u32 = 0; currentIndex < numberOfRgbaPixels; currentIndex += PIXEL_LENGTH) {
+  for (
+    let currentIndex: usize = 0;
+    currentIndex < numberOfRgbaPixels;
+    currentIndex += PIXEL_LENGTH
+  ) {
     const outputStartingIndex = currentIndex + numberOfRgbaPixels;
     const r = load<u8>(currentIndex);
     const g = load<u8>(currentIndex + 1);

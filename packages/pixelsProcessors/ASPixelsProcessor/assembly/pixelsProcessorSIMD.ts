@@ -24,7 +24,7 @@ const TWELVES = f32x4.splat(12);
 export function grayscaleSIMD(numberOfRgbaPixels: u32, filterValue: i8): void {
   const filterRate = f32x4.splat(<f32>1 + <f32>filterValue / <f32>100);
 
-  for (let currentIndex: u32 = 0; currentIndex < numberOfRgbaPixels; currentIndex += SIMD_WIDTH) {
+  for (let currentIndex: usize = 0; currentIndex < numberOfRgbaPixels; currentIndex += SIMD_WIDTH) {
     const r = load<u8>(currentIndex);
     const g = load<u8>(currentIndex + 1);
     const b = load<u8>(currentIndex + 2);
@@ -84,7 +84,11 @@ export function grayscaleSIMD(numberOfRgbaPixels: u32, filterValue: i8): void {
 export function inversionSIMD(numberOfRgbaPixels: u32, filterValue: i8): void {
   const filterRate = f32x4.splat(<f32>1 + <f32>filterValue / <f32>100);
 
-  for (let currentIndex: u32 = 0; currentIndex < numberOfRgbaPixels; currentIndex += PIXEL_LENGTH) {
+  for (
+    let currentIndex: usize = 0;
+    currentIndex < numberOfRgbaPixels;
+    currentIndex += PIXEL_LENGTH
+  ) {
     const rgbaPixels = f32x4(
       load<u8>(currentIndex),
       load<u8>(currentIndex + 1),
@@ -121,7 +125,11 @@ function hsl(valueToUpdate: u8, numberOfRgbaPixels: u32, filterValue: i8): void 
   if (valueToUpdate > 2) throw new Error('valueToUpdate should be 0, 1 or 2');
   const filterRate = <f32>1 + <f32>filterValue / <f32>100;
 
-  for (let currentIndex: u32 = 0; currentIndex < numberOfRgbaPixels; currentIndex += PIXEL_LENGTH) {
+  for (
+    let currentIndex: usize = 0;
+    currentIndex < numberOfRgbaPixels;
+    currentIndex += PIXEL_LENGTH
+  ) {
     const outputStartingIndex = currentIndex + numberOfRgbaPixels;
     const r = load<u8>(currentIndex);
     const g = load<u8>(currentIndex + 1);
