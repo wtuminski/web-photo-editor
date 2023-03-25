@@ -5,24 +5,34 @@ import path from 'path';
 import { defineConfig } from 'vite';
 import checker from 'vite-plugin-checker';
 
-export default defineConfig({
-  plugins: [
-    react(),
-    checker({
-      typescript: true,
-    }),
-  ],
-  build: {
-    target: "esnext"
-  },
-  resolve: {
-    alias: {
-      '~': path.resolve(__dirname, 'src'),
+export default defineConfig(({ mode }) =>({
+    plugins: [
+      react(),
+      checker({
+        typescript: true,
+      }),
+    ],
+    build: {
+      target: "esnext",
+      assetsInlineLimit: 0,
+      // module preloading generated circular dependency between main chunk and the dynamic chunk with WebAassembly bindings
+      modulePreload: false
     },
-  },
-  test: {
-    coverage: {
-      all: true,
+    resolve: {
+      alias: {
+        '~': path.resolve(__dirname, 'src'),
+        ...(mode === 'development'
+          ? {
+              '@web-photo-editor/as-pixels-processor/all': '@web-photo-editor/as-pixels-processor/dev-all',
+              '@web-photo-editor/as-pixels-processor/inline': '@web-photo-editor/as-pixels-processor/dev-inline',
+              '@web-photo-editor/as-pixels-processor/simd': '@web-photo-editor/as-pixels-processor/dev-simd',
+            }
+          : {})
+      },
     },
-  },
-});
+    test: {
+      coverage: {
+        all: true,
+      },
+    },
+  }));
