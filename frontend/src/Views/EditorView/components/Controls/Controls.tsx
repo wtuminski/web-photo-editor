@@ -37,7 +37,7 @@ export const Controls: React.FC<Props> = ({
       <ToggleButtonGroup
         value={filtersVariant}
         exclusive
-        onChange={(_, variant) => setFiltersVariant(variant)}
+        onChange={(_, variant) => variant && setFiltersVariant(variant)}
         aria-label="select filters variant"
         sx={{ mb: 2 }}
       >
