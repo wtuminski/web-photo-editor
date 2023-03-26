@@ -45,7 +45,7 @@
     "build:release-all": "asc assembly/index.ts --target release --outFile dist/release/index.wasm",
     "build:release": "yarn build:release-all & yarn build:release-inline & yarn build:release-simd",
     "build": "yarn build:debug & yarn build:release",
-    "dev": "chokidar \"assembly/**/*.ts\"  --initial --command \"yarn build:release\"",
+    "dev": "chokidar \"assembly/**/*.ts\"  --initial --command \"yarn build:debug\"",
     "test": "asp --summary",
     "test:verbose": "asp --verbose",
     "test:watch": "chokidar \"assembly/**/*.ts\" --initial --command \"yarn test:verbose\"",
