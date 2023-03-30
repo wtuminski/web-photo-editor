@@ -7,19 +7,34 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import { grey } from '@mui/material/colors';
-import React, { useMemo } from 'react';
+import React, { ComponentProps, useMemo } from 'react';
 import { createStoreon } from 'storeon';
 import { StoreContext } from 'storeon/react';
 
 import { EditorView } from '~/Views/EditorView';
 
-import { AppEvents, AppState, filtersStoreonModule, initFiltersModule } from './appStore';
+import {
+  AppEvents,
+  AppState,
+  filtersStoreonModule,
+  initFiltersModule,
+  ResetImageFiltersValuesEvent,
+  UpdateImageFiltersValuesEvent,
+} from './appStore';
 import { Header } from './Components/Header';
 
 type ExtendedTheme = ReturnType<typeof extendTheme>;
 
 const store = createStoreon<AppState, AppEvents>([filtersStoreonModule]);
 const filtersModule = initFiltersModule(store);
+
+type UpdateImageFilters = ComponentProps<typeof EditorView>['updateImageFilters'];
+const updateImageFilters: UpdateImageFilters = (
+  flagOrImageFiltersValues,
+): ReturnType<UpdateImageFilters> =>
+  flagOrImageFiltersValues === 'resetFiltersValues'
+    ? store.dispatch(ResetImageFiltersValuesEvent)
+    : store.dispatch(UpdateImageFiltersValuesEvent, flagOrImageFiltersValues);
 
 export const App: React.FC = () => {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
@@ -58,7 +73,11 @@ export const App: React.FC = () => {
       >
         <StoreContext.Provider value={filtersModule.store}>
           <Header />
-          <EditorView filtersVariantObservable={filtersModule.filtersVariantObservable} />
+          <EditorView
+            filtersVariantObservable={filtersModule.filtersVariantObservable}
+            imageFiltersValuesObservable={filtersModule.imageFiltersValuesObservable}
+            updateImageFilters={updateImageFilters}
+          />
         </StoreContext.Provider>
       </Grid>
     </CSSVarsProvider>

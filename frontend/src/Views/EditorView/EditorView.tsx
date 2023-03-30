@@ -5,16 +5,22 @@ import { useEditImage } from '~/Hooks';
 import { supportedImageFileTypes } from '~/Utils/constants';
 import { Observable } from '~/Utils/observable';
 import { isSupportedImageFile } from '~/Utils/typeGuards';
-import { FiltersVariant, ImageFile } from '~/Utils/types';
+import { FiltersVariant, ImageFile, ImageFiltersValues } from '~/Utils/types';
 
 import { ImageConfigPane } from './components/ImageConfigPane';
 import { ImageDisplaySpace } from './components/ImageDisplaySpace';
 
 interface Props {
   filtersVariantObservable: Observable<FiltersVariant>;
+  imageFiltersValuesObservable: Observable<ImageFiltersValues>;
+  updateImageFilters: Parameters<typeof useEditImage>['0']['updateImageFilters'];
 }
 
-export const EditorView: React.FC<Props> = ({ filtersVariantObservable }) => {
+export const EditorView: React.FC<Props> = ({
+  filtersVariantObservable,
+  imageFiltersValuesObservable,
+  updateImageFilters,
+}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [imageFile, setImageFile] = useState<ImageFile | null>(null);
 
@@ -28,6 +34,8 @@ export const EditorView: React.FC<Props> = ({ filtersVariantObservable }) => {
     canvas: canvasRef.current,
     imageFile,
     filtersVariantObservable,
+    imageFiltersValuesObservable,
+    updateImageFilters,
   });
 
   return (

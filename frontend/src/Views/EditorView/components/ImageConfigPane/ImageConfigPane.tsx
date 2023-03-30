@@ -2,7 +2,7 @@ import { Unstable_Grid2 as Grid } from '@mui/material';
 import { ChangeEventHandler } from 'react';
 import { useStoreon } from 'storeon/react';
 
-import { AppEvents, AppState, FiltersVariantUpdateEvent } from '~/appStore';
+import { AppEvents, AppState, UpdateFiltersVariantEvent } from '~/appStore';
 import { ImageFile, ImageFileType, ImageFiltersValues, ImageFilterType } from '~/Utils/types';
 
 import { Controls } from '../Controls';
@@ -58,7 +58,7 @@ export const ImageConfigPane: React.FC<Props> = ({
         supportedImageFileTypes={supportedImageFileTypes}
         onImageChange={onImageChange}
         filtersVariant={filtersVariant}
-        setFiltersVariant={variant => dispatch(FiltersVariantUpdateEvent, variant)}
+        setFiltersVariant={variant => dispatch(UpdateFiltersVariantEvent, variant)}
       />
     </Grid>
   );

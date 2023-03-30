@@ -1,4 +1,4 @@
-import { Reducer, useEffect, useReducer, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { applyImageData, getImageData, scheduleImageDrawingInCanvas } from '~/Utils/canvas';
 import { createImageDataProcessor } from '~/Utils/imageDataProcessor';
@@ -14,31 +14,14 @@ import {
 
 import { useObservable } from './useObservable';
 
-interface FiltersReducerAction {
-  filterType: ImageFilterType;
-  filterValue: number;
-}
-
-const initialImageFiltersValues: ImageFiltersValues = {
-  grayscale: 0,
-  inversion: 0,
-  hue: 0,
-  saturation: 0,
-  luminosity: 0,
-};
-
-const filtersReducer: Reducer<ImageFiltersValues, FiltersReducerAction | 'resetFilters'> = (
-  filters,
-  action,
-) =>
-  action === 'resetFilters'
-    ? { ...initialImageFiltersValues }
-    : { ...filters, [action.filterType]: action.filterValue };
-
 interface Props {
   canvas: HTMLCanvasElement | null;
   imageFile: ImageFile | null;
   filtersVariantObservable: Observable<FiltersVariant>;
+  imageFiltersValuesObservable: Observable<ImageFiltersValues>;
+  updateImageFilters: (
+    resetFiltersValuesOrImageFiltersValues: 'resetFiltersValues' | Partial<ImageFiltersValues>,
+  ) => void;
 }
 
 interface UseEditImageHandlers {
@@ -53,14 +36,15 @@ export const useEditImage = ({
   canvas,
   imageFile,
   filtersVariantObservable,
+  imageFiltersValuesObservable,
+  updateImageFilters,
 }: Props): UseEditImageHandlers => {
   const imageDataProcessor = useRef<ImageDataProcessor | null>(null);
-  const [imageFiltersValues, dispatch] = useReducer(filtersReducer, initialImageFiltersValues);
-
   const [imageLoading, setImageLoading] = useState<'init' | 'loading' | 'ready'>('init');
   const [selectedImageFilter, setSelectedImageFilter] = useState<ImageFilterType>('grayscale');
   const [isImageFilterInProgress, setIsImageFilterInProgress] = useState<boolean>(false);
   const filtersVariant = useObservable(filtersVariantObservable);
+  const imageFiltersValues = useObservable(imageFiltersValuesObservable);
 
   const currentFilterValue = imageFiltersValues[selectedImageFilter];
 
@@ -77,7 +61,7 @@ export const useEditImage = ({
   };
 
   const setImageFilterValue = (filterValue: number): void =>
-    dispatch({ filterType: selectedImageFilter, filterValue });
+    updateImageFilters({ [selectedImageFilter]: filterValue });
 
   //
   // side effects
@@ -85,7 +69,7 @@ export const useEditImage = ({
   const onImageChange = (): CleanUpFunction | void => {
     if (!canvas || !imageFile) return undefined;
     setImageLoading('loading');
-    dispatch('resetFilters');
+    updateImageFilters('resetFiltersValues');
     const { cleanUp, done } = scheduleImageDrawingInCanvas(canvas, imageFile);
     done.then(() => setImageLoading('ready'));
     return cleanUp;
