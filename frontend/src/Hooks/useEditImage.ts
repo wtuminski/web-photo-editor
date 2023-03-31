@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { applyImageData, getImageData, scheduleImageDrawingInCanvas } from '~/Utils/canvas';
 import { createImageDataProcessor } from '~/Utils/imageDataProcessor';
 import { Observable } from '~/Utils/observable';
+import { withPerformanceMeasure } from '~/Utils/performanceUtils';
 import {
   CleanUpFunction,
   FiltersVariant,
@@ -52,11 +53,15 @@ export const useEditImage = ({
     if (!canvas || !imageDataProcessor.current || imageLoading !== 'ready') return undefined;
     setIsImageFilterInProgress(true);
 
-    const timeoutId = setTimeout(() => {
-      const newImageData = imageDataProcessor.current![selectedImageFilter](currentFilterValue);
-      applyImageData(canvas, newImageData);
-      setIsImageFilterInProgress(false);
-    }, 100);
+    const timeoutId = setTimeout(
+      withPerformanceMeasure(`${selectedImageFilter}-${filtersVariant}`, () => {
+        const newImageData = imageDataProcessor.current![selectedImageFilter](currentFilterValue);
+        applyImageData(canvas, newImageData);
+        setIsImageFilterInProgress(false);
+      }),
+      // timeout is necessary to allow browser to render loading state
+      100,
+    );
     return () => clearTimeout(timeoutId);
   };
 

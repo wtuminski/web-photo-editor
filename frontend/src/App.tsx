@@ -22,6 +22,7 @@ import {
   UpdateImageFiltersValuesEvent,
 } from './appStore';
 import { Header } from './Components/Header';
+import { prepareImageFiltersPerformanceMeasurer } from './Utils/performanceUtils';
 
 type ExtendedTheme = ReturnType<typeof extendTheme>;
 
@@ -35,6 +36,8 @@ const updateImageFilters: UpdateImageFilters = (
   flagOrImageFiltersValues === 'resetFiltersValues'
     ? store.dispatch(ResetImageFiltersValuesEvent)
     : store.dispatch(UpdateImageFiltersValuesEvent, flagOrImageFiltersValues);
+
+prepareImageFiltersPerformanceMeasurer(updateImageFilters);
 
 export const App: React.FC = () => {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
