@@ -1,8 +1,8 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
   "eslint.workingDirectories": [
-    "./frontend",
     "./packages/tsconfig",
+    "./packages/frontend",
     "./packages/pixelsProcessors/TSPixelsProcessor",
     "./packages/pixelsProcessors/ASPixelsProcessor",
   ]
