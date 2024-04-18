@@ -8,7 +8,7 @@
   "private": true,
   "packageManager": "yarn@3.4.1",
   "workspaces": [
-    "frontend",
+    "packages/frontend",
     "packages/pixelsProcessors/*",
     "packages/tsconfig"
   ],
