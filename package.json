@@ -23,7 +23,7 @@
     "lint": "yarn workspaces foreach -piv --topological-dev run lint"
   },
   "devDependencies": {
-    "@types/node": "18.11.18",
+    "@types/node": "20.16.5",
     "@typescript-eslint/eslint-plugin": "5.57.0",
     "@typescript-eslint/parser": "5.57.0",
     "eslint": "8.37.0",
