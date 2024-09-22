@@ -1,14 +1,17 @@
 # web-photo-editor
 
 ## How to use:
+
 1. Prepare dependencies: `yarn`
 2. Run
+
 - dev: `yarn dev`
 - start:
   1. `yarn build`
   2. `yarn start`
 
 ## How to measure performance:
+
 1. Run the app in development or production mode
 2. Open the app in your preferred browser
 3. Open DevTools in the browser

@@ -104,10 +104,10 @@ const hsl = (
       delta === 0
         ? 0
         : r0 === cMax
-        ? (g0 - b0) / delta
-        : g0 === cMax
-        ? 2 + (b0 - r0) / delta
-        : 4 + (r0 - g0) / delta;
+          ? (g0 - b0) / delta
+          : g0 === cMax
+            ? 2 + (b0 - r0) / delta
+            : 4 + (r0 - g0) / delta;
     /* eslint-enable no-nested-ternary */
 
     if (hueBase < -6 || hueBase > 6)

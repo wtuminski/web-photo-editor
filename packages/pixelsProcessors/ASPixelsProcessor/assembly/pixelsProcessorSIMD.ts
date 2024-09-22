@@ -151,10 +151,10 @@ function hsl(valueToUpdate: u8, numberOfRgbaPixels: u32, filterValue: i8): void 
       delta === 0
         ? <f32>0
         : r0 === cMax
-        ? (g0 - b0) / delta
-        : g0 === cMax
-        ? <f32>2 + (b0 - r0) / delta
-        : <f32>4 + (r0 - g0) / delta;
+          ? (g0 - b0) / delta
+          : g0 === cMax
+            ? <f32>2 + (b0 - r0) / delta
+            : <f32>4 + (r0 - g0) / delta;
     /* eslint-enable no-nested-ternary */
 
     if (hueBase < -6 || hueBase > 6)
