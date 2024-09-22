@@ -17,11 +17,11 @@ export class DeferredPromise<T> extends Promise<T> {
     /* eslint-enable immutable/no-mutation */
   }
 
-  static get [Symbol.species]() {
+  static override get [Symbol.species]() {
     return Promise;
   }
 
-  get [Symbol.toStringTag]() {
+  override get [Symbol.toStringTag]() {
     return this.name;
   }
 }
