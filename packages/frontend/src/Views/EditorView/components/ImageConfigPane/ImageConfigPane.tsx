@@ -1,4 +1,4 @@
-import { Unstable_Grid2 as Grid } from '@mui/material';
+import { Grid2 as Grid } from '@mui/material';
 import { ChangeEventHandler } from 'react';
 import { useStoreon } from 'storeon/react';
 

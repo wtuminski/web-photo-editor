@@ -1,10 +1,9 @@
 import {
+  createTheme,
   CssBaseline,
-  Experimental_CssVarsProvider as CSSVarsProvider,
-  experimental_extendTheme as extendTheme,
+  Grid2 as Grid,
   responsiveFontSizes,
-  Unstable_Grid2 as Grid,
-  useMediaQuery,
+  ThemeProvider,
 } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import React, { ComponentProps, useMemo } from 'react';
@@ -24,8 +23,6 @@ import {
 import { Header } from './Components/Header';
 import { prepareImageFiltersPerformanceMeasurer } from './Utils/performanceUtils';
 
-type ExtendedTheme = ReturnType<typeof extendTheme>;
-
 const store = createStoreon<AppState, AppEvents>([filtersStoreonModule]);
 const filtersModule = initFiltersModule(store);
 
@@ -40,11 +37,10 @@ const updateImageFilters: UpdateImageFilters = (
 prepareImageFiltersPerformanceMeasurer(updateImageFilters);
 
 export const App: React.FC = () => {
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const theme = useMemo(
     () =>
       responsiveFontSizes(
-        extendTheme({
+        createTheme({
           typography: {
             fontFamily: 'Lato, sans-serif',
           },
@@ -58,31 +54,32 @@ export const App: React.FC = () => {
             },
           },
         }),
-      ) as ExtendedTheme,
+      ),
     [],
   );
 
   return (
-    <CSSVarsProvider theme={theme} defaultMode={prefersDarkMode ? 'dark' : 'light'}>
-      <CssBaseline enableColorScheme />
-      <Grid
-        container
-        sx={{
-          width: '100vw',
-          height: '100vh',
-          flexDirection: 'column',
-          flexWrap: 'nowrap',
-        }}
-      >
-        <StoreContext.Provider value={filtersModule.store}>
-          <Header />
-          <EditorView
-            filtersVariantObservable={filtersModule.filtersVariantObservable}
-            imageFiltersValuesObservable={filtersModule.imageFiltersValuesObservable}
-            updateImageFilters={updateImageFilters}
-          />
-        </StoreContext.Provider>
-      </Grid>
-    </CSSVarsProvider>
+    <ThemeProvider theme={theme}>
+      <CssBaseline enableColorScheme>
+        <Grid
+          container
+          sx={{
+            width: '100vw',
+            height: '100vh',
+            flexDirection: 'column',
+            flexWrap: 'nowrap',
+          }}
+        >
+          <StoreContext.Provider value={filtersModule.store}>
+            <Header />
+            <EditorView
+              filtersVariantObservable={filtersModule.filtersVariantObservable}
+              imageFiltersValuesObservable={filtersModule.imageFiltersValuesObservable}
+              updateImageFilters={updateImageFilters}
+            />
+          </StoreContext.Provider>
+        </Grid>
+      </CssBaseline>
+    </ThemeProvider>
   );
 };

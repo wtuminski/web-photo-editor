@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Typography, Unstable_Grid2 as Grid, useColorScheme } from '@mui/material';
+import { AppBar, Grid2 as Grid, Toolbar, Typography, useColorScheme } from '@mui/material';
 import { useCallback } from 'react';
 
 import { ModeToggle } from './components/ModeToggle';

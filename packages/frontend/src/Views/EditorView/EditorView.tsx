@@ -1,4 +1,4 @@
-import { Unstable_Grid2 as Grid } from '@mui/material';
+import { Grid2 as Grid } from '@mui/material';
 import { useRef, useState } from 'react';
 
 import { useEditImage } from '~/Hooks';

@@ -1,6 +1,7 @@
 import {
   Fade,
   FormControl,
+  Grid2 as Grid,
   Input,
   InputLabel,
   MenuItem,
@@ -8,7 +9,6 @@ import {
   SelectChangeEvent,
   Slider,
   Typography,
-  Unstable_Grid2 as Grid,
 } from '@mui/material';
 import { ChangeEvent } from 'react';
 

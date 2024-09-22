@@ -1,10 +1,4 @@
-import {
-  Button,
-  ToggleButton,
-  ToggleButtonGroup,
-  Typography,
-  Unstable_Grid2 as Grid,
-} from '@mui/material';
+import { Button, Grid2 as Grid, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
 import { ChangeEventHandler, useMemo } from 'react';
 
 import { FiltersVariant, ImageFileType } from '~/Utils/types';
