@@ -1,4 +1,6 @@
+import { ImageProcessors, SIMDImageProcessors } from '@web-photo-editor/rust-pixels-processor';
 import * as tsFilters from '@web-photo-editor/ts-pixels-processor';
+import { match, P } from 'ts-pattern';
 
 import { getASPixelsProcessor } from './getASPixelsProcessor';
 import { FiltersVariant, ImageDataProcessor, ImageFilterType } from './types';
@@ -48,6 +50,18 @@ const getASImageFilter =
     );
   };
 
+const getRustImageFilter =
+  (filterType: ImageFilterType, filtersVariant: FiltersVariant): ImageFilter =>
+  (pixels, filterValue) => {
+    const newPixels = match(filtersVariant)
+      .with('rust', () => ImageProcessors[filterType](pixels, filterValue))
+      .with('rustSIMD', () => SIMDImageProcessors[filterType](pixels, filterValue))
+      .otherwise(() => {
+        throw new Error('Rust filters are not implemented yet');
+      });
+    return newPixels;
+  };
+
 //
 // module utils
 //
@@ -87,11 +101,12 @@ export const createImageDataProcessor = (
     (filterType: ImageFilterType): ImageFilter =>
     (pixles, filterValue) => {
       const filtersVariant = getFiltersVariant();
-      return (
-        filtersVariant === 'ts'
-          ? tsFilters[filterType]
-          : getASImageFilter(filterType, filtersVariant)
-      )(pixles, filterValue);
+      const imageFilter: ImageFilter = match(filtersVariant)
+        .with('ts', () => tsFilters[filterType])
+        .with(P.union('as', 'asSIMD'), () => getASImageFilter(filterType, filtersVariant))
+        .with(P.union('rust', 'rustSIMD'), () => getRustImageFilter(filterType, filtersVariant))
+        .exhaustive();
+      return imageFilter(pixles, filterValue);
     };
 
   return {

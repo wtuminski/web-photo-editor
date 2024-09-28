@@ -19,7 +19,7 @@
     "dev": "yarn workspaces foreach -piv run dev",
     "test": "yarn workspaces foreach -piv --topological-dev run test",
     "test:coverage": "yarn workspaces foreach -piv --topological-dev run test:coverage",
-    "prettier": "prettier --write .",
+    "prettier": "cargo fmt --manifest-path packages/pixelsProcessors/RustPixelsProcessor/Cargo.toml & prettier --write . ",
     "lint": "yarn workspaces foreach -piv --topological-dev run lint"
   },
   "devDependencies": {

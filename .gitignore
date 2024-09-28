@@ -16,3 +16,10 @@
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# rust
+**/target
+**/*.rs.bk
+Cargo.lock
+pkg/
+wasm-pack.log

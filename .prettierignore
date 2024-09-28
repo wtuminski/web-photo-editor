@@ -12,3 +12,5 @@ import-sorter.json
 **/tsconfig.vite.json
 **/vite.config.ts 
 **/vite-env.d.ts
+
+packages/pixelsProcessors/ASPixelsProcessor/assembly/utils.ts

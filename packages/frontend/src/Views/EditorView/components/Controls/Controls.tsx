@@ -44,6 +44,12 @@ export const Controls: React.FC<Props> = ({
         <ToggleButton value={'ts' satisfies FiltersVariant}>
           <img src="ts-logo-32x32.png" alt="TypeScript" width={32} height={32} />
         </ToggleButton>
+        <ToggleButton value={'rust' satisfies FiltersVariant}>
+          <img src="rust-logo.svg" alt="TypeScript" width={32} height={32} />
+        </ToggleButton>
+        <ToggleButton value={'rustSIMD' satisfies FiltersVariant}>
+          <img src="rust-logo.svg" alt="TypeScript" width={32} height={32} />
+        </ToggleButton>
       </ToggleButtonGroup>
       <Button variant="outlined" component="label">
         Upload image

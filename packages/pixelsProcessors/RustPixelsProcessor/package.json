@@ -1,0 +1,24 @@
+{
+  "name": "@web-photo-editor/rust-pixels-processor",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "packageManager": "yarn@3.4.1",
+  "exports": {
+    ".": "./pkg/rust_pixels_processor.js"
+  },
+  "types": "./pkg/rust_pixels_processor.d.ts",
+  "scripts": {
+    "compile": "cargo check",
+    "build": "wasm-pack build --release",
+    "dev": "chokidar \"src/**/*.rs\"  --initial --command \"wasm-pack build --release\"",
+    "dev:debug": "chokidar \"src/**/*.rs\"  --initial --command \"wasm-pack build --dev\"",
+    "test": "echo \"No testing set for Rust!",
+    "test:verbose": "echo \"No verbose testing set for Rust!",
+    "test:watch": "chokidar \"src/**/*.rs\" --initial --command \"yarn test:verbose\"",
+    "lint": "cargo clippy"
+  },
+  "devDependencies": {
+    "chokidar-cli": "3.0.0"
+  }
+}

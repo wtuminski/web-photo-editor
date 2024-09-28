@@ -8,6 +8,7 @@ import {
 import { grey } from '@mui/material/colors';
 import React, { ComponentProps, useMemo } from 'react';
 import { createStoreon } from 'storeon';
+import { storeonDevtools } from 'storeon/devtools';
 import { StoreContext } from 'storeon/react';
 
 import { EditorView } from '~/Views/EditorView';
@@ -23,7 +24,10 @@ import {
 import { Header } from './Components/Header';
 import { prepareImageFiltersPerformanceMeasurer } from './Utils/performanceUtils';
 
-const store = createStoreon<AppState, AppEvents>([filtersStoreonModule]);
+const store = createStoreon<AppState, AppEvents>([
+  filtersStoreonModule,
+  process.env.NODE_ENV === 'development' && storeonDevtools,
+]);
 const filtersModule = initFiltersModule(store);
 
 type UpdateImageFilters = ComponentProps<typeof EditorView>['updateImageFilters'];
