@@ -33,7 +33,7 @@ export function adjustValueToRange(maxValue: f32, minValue: f32, value: f32): f3
  */
 @inline
 export function average(a: u8, b: u8, c: u8): f32 {
-  return (((a + b + c) as f32) / 3) as f32;
+  return (((a as f32 + b as f32 + c as f32) as f32) / 3 as f32) as f32;
 }
 
 /**

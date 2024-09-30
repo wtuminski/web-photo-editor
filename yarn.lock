@@ -53,31 +53,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@as-pect/assembly@npm:^8.0.1, @as-pect/assembly@npm:^8.1.0":
+"@as-pect/assembly@npm:^8.1.0":
   version: 8.1.0
   resolution: "@as-pect/assembly@npm:8.1.0"
   checksum: a2a94172d9dd114fca6b31c664c6bac36915b413b51015e3737349095bf6f1e200a866c79c82b23b2eff68401d7a283af2eeb5b9cc3da60b13fca558929dd06f
   languageName: node
   linkType: hard
 
-"@as-pect/cli@npm:8.0.1":
-  version: 8.0.1
-  resolution: "@as-pect/cli@npm:8.0.1"
+"@as-pect/cli@npm:8.1.0":
+  version: 8.1.0
+  resolution: "@as-pect/cli@npm:8.1.0"
   dependencies:
     "@as-covers/core": 0.4.2
     "@as-covers/transform": 0.4.2
-    "@as-pect/assembly": ^8.0.1
-    "@as-pect/core": ^8.0.1
-    "@as-pect/csv-reporter": ^8.0.1
-    "@as-pect/json-reporter": ^8.0.1
-    "@as-pect/transform": ^8.0.1
+    "@as-pect/assembly": ^8.1.0
+    "@as-pect/core": ^8.1.0
+    "@as-pect/csv-reporter": ^8.1.0
+    "@as-pect/json-reporter": ^8.1.0
+    "@as-pect/transform": ^8.1.0
     chalk: ^5.2.0
     chalk-template: ^0.4.0
     commander: ^9.4.1
     glob: ^8.0.3
     glob-promise: ^5.0.0
   peerDependencies:
-    assemblyscript: ^0.25.0
+    assemblyscript: ^0.27.2
   dependenciesMeta:
     "@as-pect/csv-reporter":
       optional: true
@@ -86,11 +86,11 @@ __metadata:
   bin:
     asp: bin/asp.js
     aspect: bin/asp.js
-  checksum: bd2a2d90e6c520a040927a2346c57eecd641f2b3cb2d89d44001d0f67b48359b699376170c39455224419669bf2d99f6258f28195e22f83b4af345e173a95cfb
+  checksum: a43a07f6f5518880fc02c11e9fbedeafdc1cd72caf02d752cf7fff80575a76c6eec1a592f30d9978024d0bc5a246cd0a5c019a07d1664206683058de5a78e666
   languageName: node
   linkType: hard
 
-"@as-pect/core@npm:^8.0.1, @as-pect/core@npm:^8.1.0":
+"@as-pect/core@npm:^8.1.0":
   version: 8.1.0
   resolution: "@as-pect/core@npm:8.1.0"
   dependencies:
@@ -105,7 +105,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@as-pect/csv-reporter@npm:^8.0.1":
+"@as-pect/csv-reporter@npm:^8.1.0":
   version: 8.1.0
   resolution: "@as-pect/csv-reporter@npm:8.1.0"
   dependencies:
@@ -114,7 +114,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@as-pect/json-reporter@npm:^8.0.1":
+"@as-pect/json-reporter@npm:^8.1.0":
   version: 8.1.0
   resolution: "@as-pect/json-reporter@npm:8.1.0"
   dependencies:
@@ -134,7 +134,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@as-pect/transform@npm:^8.0.1":
+"@as-pect/transform@npm:^8.1.0":
   version: 8.1.0
   resolution: "@as-pect/transform@npm:8.1.0"
   dependencies:
@@ -2274,9 +2274,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@web-photo-editor/as-pixels-processor@workspace:packages/pixelsProcessors/ASPixelsProcessor"
   dependencies:
-    "@as-pect/cli": 8.0.1
+    "@as-pect/cli": 8.1.0
     "@web-photo-editor/tsconfig": "workspace:*"
-    assemblyscript: 0.27.0
+    assemblyscript: 0.27.22
     chokidar-cli: 3.0.0
     eslint: 8.37.0
     typescript: 5.6.2
@@ -2747,16 +2747,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"assemblyscript@npm:0.27.0":
-  version: 0.27.0
-  resolution: "assemblyscript@npm:0.27.0"
+"assemblyscript@npm:0.27.22":
+  version: 0.27.22
+  resolution: "assemblyscript@npm:0.27.22"
   dependencies:
-    binaryen: 111.0.0-nightly.20230111
-    long: ^5.2.0
+    binaryen: 116.0.0-nightly.20231102
+    long: ^5.2.1
   bin:
     asc: bin/asc.js
     asinit: bin/asinit.js
-  checksum: 57db591b6c88bdda7d971465ab50ea763532791b731ae7ecbcd3bccc2f7cc8454dbf1ba1eb965278f1027b6d20c68a2dc8431eaf7e50664754b8a3680e3bcf02
+  checksum: 22ad6084a6cf4e75ae1c28c6b369c8b6c393ca7b9b47c8910d498a2fb3f0f7833e07522041123aa0dc35e03af9e9df70fcde424f9fde50d7d3d3953127f7a04c
   languageName: node
   linkType: hard
 
@@ -2900,13 +2900,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"binaryen@npm:111.0.0-nightly.20230111":
-  version: 111.0.0-nightly.20230111
-  resolution: "binaryen@npm:111.0.0-nightly.20230111"
+"binaryen@npm:116.0.0-nightly.20231102":
+  version: 116.0.0-nightly.20231102
+  resolution: "binaryen@npm:116.0.0-nightly.20231102"
   bin:
     wasm-opt: bin/wasm-opt
     wasm2js: bin/wasm2js
-  checksum: a5ffc5e286482925025b54798503042809bff5b57a2642345b7956c9e54269a62742d1beb96a380012cd8e1ff7b427c017c2531d0fac5d2dede1b10be3fd9739
+  checksum: b2bf7940ea014ea2489f9457d9f2d9e3b39d2fc84d03184ee8d1dd3e17e77b4623cb7688a5f3751042f96546126dc02473a9fb7c0cd12f0d30d55cb0360e32f2
   languageName: node
   linkType: hard
 
@@ -6958,7 +6958,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"long@npm:^5.2.0, long@npm:^5.2.1":
+"long@npm:^5.2.1":
   version: 5.2.3
   resolution: "long@npm:5.2.3"
   checksum: 6a0da658f5ef683b90330b1af76f06790c623e148222da9d75b60e266bbf88f803232dd21464575681638894a84091616e7f89557aa087fd14116c0f4e0e43d9

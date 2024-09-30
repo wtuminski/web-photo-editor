@@ -1,11 +1,4 @@
 {
   "extends": "assemblyscript/std/assembly.json",
-  "compilerOptions": {
-    /** 
-      a temporary fix for `Cannot find global type 'CallableFunction'`
-      https://github.com/AssemblyScript/assemblyscript/issues/2646
-    */
-    "strictBindCallApply": false
-  },
   "include": ["./**/*.ts"]
 }
