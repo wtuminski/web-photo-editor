@@ -1,10 +1,12 @@
 mod constants;
 mod image_processors;
+mod simd_image_processors;
 mod types;
 mod utils;
 
-use types::PixelChannels;
 use wasm_bindgen::prelude::*;
+
+use types::{PixelChannels, HSL};
 
 #[wasm_bindgen]
 extern "C" {
@@ -21,25 +23,25 @@ pub struct ImageProcessors {}
 
 #[wasm_bindgen]
 impl ImageProcessors {
-    pub fn grayscale(pixels: PixelChannels, filter_value: u8) -> PixelChannels {
+    pub fn grayscale(pixel_channels: PixelChannels, filter_value: u8) -> PixelChannels {
         utils::set_panic_hook();
-        image_processors::grayscale(pixels, filter_value)
+        image_processors::grayscale(pixel_channels, filter_value)
     }
-    pub fn inversion(pixels: PixelChannels, _filter_value: u8) -> PixelChannels {
+    pub fn inversion(pixel_channels: PixelChannels, filter_value: u8) -> PixelChannels {
         utils::set_panic_hook();
-        pixels
+        image_processors::inversion(pixel_channels, filter_value)
     }
-    pub fn hue(pixels: PixelChannels, _filter_value: u8) -> PixelChannels {
+    pub fn hue(pixel_channels: PixelChannels, filter_value: u8) -> PixelChannels {
         utils::set_panic_hook();
-        pixels
+        image_processors::hsl(HSL::Hue, pixel_channels, filter_value)
     }
-    pub fn saturation(pixels: PixelChannels, _filter_value: u8) -> PixelChannels {
+    pub fn saturation(pixel_channels: PixelChannels, filter_value: u8) -> PixelChannels {
         utils::set_panic_hook();
-        pixels
+        image_processors::hsl(HSL::Saturation, pixel_channels, filter_value)
     }
-    pub fn luminosity(pixels: PixelChannels, _filter_value: u8) -> PixelChannels {
+    pub fn luminosity(pixel_channels: PixelChannels, filter_value: u8) -> PixelChannels {
         utils::set_panic_hook();
-        pixels
+        image_processors::hsl(HSL::Luminosity, pixel_channels, filter_value)
     }
 }
 
@@ -48,24 +50,24 @@ pub struct SIMDImageProcessors {}
 
 #[wasm_bindgen]
 impl SIMDImageProcessors {
-    pub fn grayscale(pixels: PixelChannels, _filter_value: u8) -> PixelChannels {
+    pub fn grayscale(pixel_channels: PixelChannels, filter_value: u8) -> PixelChannels {
         utils::set_panic_hook();
-        pixels
+        simd_image_processors::grayscale(pixel_channels, filter_value)
     }
-    pub fn inversion(pixels: PixelChannels, _filter_value: u8) -> PixelChannels {
+    pub fn inversion(pixel_channels: PixelChannels, filter_value: u8) -> PixelChannels {
         utils::set_panic_hook();
-        pixels
+        simd_image_processors::inversion(pixel_channels, filter_value)
     }
-    pub fn hue(pixels: PixelChannels, _filter_value: u8) -> PixelChannels {
+    pub fn hue(pixel_channels: PixelChannels, filter_value: u8) -> PixelChannels {
         utils::set_panic_hook();
-        pixels
+        simd_image_processors::hsl(HSL::Hue, pixel_channels, filter_value)
     }
-    pub fn saturation(pixels: PixelChannels, _filter_value: u8) -> PixelChannels {
+    pub fn saturation(pixel_channels: PixelChannels, filter_value: u8) -> PixelChannels {
         utils::set_panic_hook();
-        pixels
+        simd_image_processors::hsl(HSL::Saturation, pixel_channels, filter_value)
     }
-    pub fn luminosity(pixels: PixelChannels, _filter_value: u8) -> PixelChannels {
+    pub fn luminosity(pixel_channels: PixelChannels, filter_value: u8) -> PixelChannels {
         utils::set_panic_hook();
-        pixels
+        simd_image_processors::hsl(HSL::Luminosity, pixel_channels, filter_value)
     }
 }

@@ -13,9 +13,10 @@
     "build": "wasm-pack build --release",
     "dev": "chokidar \"src/**/*.rs\"  --initial --command \"wasm-pack build --release\"",
     "dev:debug": "chokidar \"src/**/*.rs\"  --initial --command \"wasm-pack build --dev\"",
-    "test": "echo \"No testing set for Rust!",
-    "test:verbose": "echo \"No verbose testing set for Rust!",
-    "test:watch": "chokidar \"src/**/*.rs\" --initial --command \"yarn test:verbose\"",
+    "test:wasm": "wasm-pack test --node",
+    "test:benchmarks": "echo \"TODO: Add benchmarks\"",
+    "test": "yarn test:wasm && yarn test:benchmarks",
+    "test:watch": "chokidar \"src/**/*.rs\" --initial --command \"yarn test\"",
     "lint": "cargo clippy"
   },
   "devDependencies": {
