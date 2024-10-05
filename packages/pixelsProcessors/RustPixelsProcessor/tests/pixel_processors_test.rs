@@ -11,40 +11,40 @@ mod pixel_processor_tests {
         GRAYSCALE_OUTPUT, HUE_OUTPUT, INVERSION_OUTPUT, LUMINOSITY_OUTPUT, PIXELS_PROCESSOR_INPUT,
         SATURATION_OUTPUT,
     };
-    use rust_pixels_processor::{ImageProcessors, SIMDImageProcessors};
+    use rust_pixels_processor::{PixelsProcessors, SIMDPixelsProcessors};
 
     type PixelChannels = Uint8ClampedArray;
 
     #[rstest]
     #[wasm_bindgen_test]
-    #[case::grayscale(ImageProcessors::grayscale, GRAYSCALE_OUTPUT.to_vec())]
+    #[case::grayscale(PixelsProcessors::grayscale, GRAYSCALE_OUTPUT.to_vec())]
     #[ignore = "not implemented"]
     #[wasm_bindgen_test]
-    #[case::inversion(ImageProcessors::inversion, INVERSION_OUTPUT.to_vec())]
+    #[case::inversion(PixelsProcessors::inversion, INVERSION_OUTPUT.to_vec())]
     #[ignore = "not implemented"]
     #[wasm_bindgen_test]
-    #[case::hue(ImageProcessors::hue, HUE_OUTPUT.to_vec())]
+    #[case::hue(PixelsProcessors::hue, HUE_OUTPUT.to_vec())]
     #[ignore = "not implemented"]
     #[wasm_bindgen_test]
-    #[case::saturation(ImageProcessors::saturation, LUMINOSITY_OUTPUT.to_vec())]
+    #[case::saturation(PixelsProcessors::saturation, LUMINOSITY_OUTPUT.to_vec())]
     #[ignore = "not implemented"]
     #[wasm_bindgen_test]
-    #[case::luminosity(ImageProcessors::luminosity, SATURATION_OUTPUT.to_vec())]
+    #[case::luminosity(PixelsProcessors::luminosity, SATURATION_OUTPUT.to_vec())]
     #[ignore = "not implemented"]
     #[wasm_bindgen_test]
-    #[case::grayscale_simd(SIMDImageProcessors::grayscale, GRAYSCALE_OUTPUT.to_vec())]
+    #[case::grayscale_simd(SIMDPixelsProcessors::grayscale, GRAYSCALE_OUTPUT.to_vec())]
     #[ignore = "not implemented"]
     #[wasm_bindgen_test]
-    #[case::inversion_simd(SIMDImageProcessors::inversion, INVERSION_OUTPUT.to_vec())]
+    #[case::inversion_simd(SIMDPixelsProcessors::inversion, INVERSION_OUTPUT.to_vec())]
     #[ignore = "not implemented"]
     #[wasm_bindgen_test]
-    #[case::hue_simd(SIMDImageProcessors::hue, HUE_OUTPUT.to_vec())]
+    #[case::hue_simd(SIMDPixelsProcessors::hue, HUE_OUTPUT.to_vec())]
     #[ignore = "not implemented"]
     #[wasm_bindgen_test]
-    #[case::saturation_simd(SIMDImageProcessors::saturation, LUMINOSITY_OUTPUT.to_vec())]
+    #[case::saturation_simd(SIMDPixelsProcessors::saturation, LUMINOSITY_OUTPUT.to_vec())]
     #[ignore = "not implemented"]
     #[wasm_bindgen_test]
-    #[case::luminosity_simd(SIMDImageProcessors::luminosity, SATURATION_OUTPUT.to_vec())]
+    #[case::luminosity_simd(SIMDPixelsProcessors::luminosity, SATURATION_OUTPUT.to_vec())]
     fn image_processor_test(
         #[case] processor: fn(PixelChannels, u8) -> PixelChannels,
         #[case] expected: Vec<u8>,

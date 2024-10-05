@@ -1,12 +1,10 @@
-use wasm_bindgen::JsValue;
-
 use crate::{constants::PIXEL_LENGTH, types::PixelChannels};
 
+#[inline]
 pub fn grayscale(pixel_channels: PixelChannels, filter_value: u8) -> PixelChannels {
     let filter_rate = 1f32 + filter_value as f32 / 100f32;
 
-    let _updated_pixel_channels = pixel_channels
-        .to_vec()
+    pixel_channels
         .chunks_exact(PIXEL_LENGTH)
         .flat_map(|pixel| {
             let r = pixel[0] as f32;
@@ -19,11 +17,5 @@ pub fn grayscale(pixel_channels: PixelChannels, filter_value: u8) -> PixelChanne
 
             [adjusted_avg, adjusted_avg, adjusted_avg, alpha]
         })
-        .collect::<Vec<u8>>();
-
-    let updated_pixel_channels =
-        PixelChannels::new(&JsValue::from_f64(_updated_pixel_channels.len() as f64));
-    updated_pixel_channels.copy_from(&_updated_pixel_channels);
-
-    updated_pixel_channels
+        .collect::<Vec<u8>>()
 }

@@ -1,4 +1,4 @@
-import { ImageProcessors, SIMDImageProcessors } from '@web-photo-editor/rust-pixels-processor';
+import { PixelsProcessors, SIMDPixelsProcessors } from '@web-photo-editor/rust-pixels-processor';
 import * as tsFilters from '@web-photo-editor/ts-pixels-processor';
 import { match, P } from 'ts-pattern';
 
@@ -54,8 +54,8 @@ const getRustImageFilter =
   (filterType: ImageFilterType, filtersVariant: FiltersVariant): ImageFilter =>
   (pixels, filterValue) => {
     const newPixels = match(filtersVariant)
-      .with('rust', () => ImageProcessors[filterType](pixels, filterValue))
-      .with('rustSIMD', () => SIMDImageProcessors[filterType](pixels, filterValue))
+      .with('rust', () => PixelsProcessors[filterType](pixels, filterValue))
+      .with('rustSIMD', () => SIMDPixelsProcessors[filterType](pixels, filterValue))
       .otherwise(() => {
         throw new Error('Rust filters are not implemented yet');
       });

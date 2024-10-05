@@ -14,12 +14,13 @@
     "dev": "chokidar \"src/**/*.rs\"  --initial --command \"wasm-pack build --release\"",
     "dev:debug": "chokidar \"src/**/*.rs\"  --initial --command \"wasm-pack build --dev\"",
     "test:wasm": "wasm-pack test --node",
-    "test:benchmarks": "echo \"TODO: Add benchmarks\"",
-    "test": "yarn test:wasm && yarn test:benchmarks",
+    "test:bench": "cross-env CRITERION_HOME=benches/results cargo bench -- --baseline pixels_processors",
+    "test": "yarn test:wasm && yarn test:bench",
     "test:watch": "chokidar \"src/**/*.rs\" --initial --command \"yarn test\"",
     "lint": "cargo clippy"
   },
   "devDependencies": {
-    "chokidar-cli": "3.0.0"
+    "chokidar-cli": "3.0.0",
+    "cross-env": "7.0.3"
   }
 }

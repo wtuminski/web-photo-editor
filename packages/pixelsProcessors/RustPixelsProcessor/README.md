@@ -25,3 +25,9 @@ wasm-pack publish
 - [`wasm-bindgen`](https://github.com/rustwasm/wasm-bindgen) for communicating
   between WebAssembly and JavaScript.
 - [`console_error_panic_hook`](https://github.com/rustwasm/console_error_panic_hook)
+
+## Requirements
+- Rustup
+- Cargo
+- wasm-pack
+- yarn
