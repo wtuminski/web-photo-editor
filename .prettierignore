@@ -14,3 +14,4 @@ import-sorter.json
 **/vite-env.d.ts
 
 packages/pixelsProcessors/ASPixelsProcessor/assembly/utils.ts
+packages/pixelsProcessors/RustPixelsProcessor/benches/results

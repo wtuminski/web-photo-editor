@@ -1,33 +1,28 @@
-# rust-pixels-processor
+# Rust Pixels Processor
 
 ## Usage
 
-### 🛠️ Build with `wasm-pack build`
+### 🛠️ Build with `wasm-pack`
 
 ```
-wasm-pack build
+yarn build
+yarn dev (for development, works in watch mode)
+yarn dev:debug (for development, works in watch mode with debug mode)
 ```
 
-### 🔬 Test in Headless Browsers with `wasm-pack test`
+### 🔬 Test in Headless Browsers with `wasm-pack` and `criterion`
 
 ```
-wasm-pack test --headless --firefox
+yarn test (runs all tests)
+yarn test:wasm (runs WASM integration tests in a headless browser)
+yarn test:bench (runs benchmarks)
+yarn test:watch (runs all tests in watch mode)
 ```
-
-### 🎁 Publish to NPM with `wasm-pack publish`
-
-```
-wasm-pack publish
-```
-
-## 🔋 Batteries Included
-
-- [`wasm-bindgen`](https://github.com/rustwasm/wasm-bindgen) for communicating
-  between WebAssembly and JavaScript.
-- [`console_error_panic_hook`](https://github.com/rustwasm/console_error_panic_hook)
 
 ## Requirements
-- Rustup
-- Cargo
-- wasm-pack
-- yarn
+- Rustup (Rust toolchain)
+- Cargo (Rust package manager)
+- wasm-pack (for building and testing)
+- Yarn (for managing workspace)
+- Firefox (for running integration tests)
+

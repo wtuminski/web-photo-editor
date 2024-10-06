@@ -1,5 +1,7 @@
 mod common;
 
+wasm_bindgen_test::wasm_bindgen_test_configure!(run_in_browser);
+
 #[cfg(test)]
 mod pixel_processor_tests {
     use js_sys::Uint8ClampedArray;

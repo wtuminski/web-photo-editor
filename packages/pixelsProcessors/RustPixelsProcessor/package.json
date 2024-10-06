@@ -13,7 +13,7 @@
     "build": "wasm-pack build --release",
     "dev": "chokidar \"src/**/*.rs\"  --initial --command \"wasm-pack build --release\"",
     "dev:debug": "chokidar \"src/**/*.rs\"  --initial --command \"wasm-pack build --dev\"",
-    "test:wasm": "wasm-pack test --node",
+    "test:wasm": "wasm-pack test --headless --firefox",
     "test:bench": "cross-env CRITERION_HOME=benches/results cargo bench -- --baseline pixels_processors",
     "test": "yarn test:wasm && yarn test:bench",
     "test:watch": "chokidar \"src/**/*.rs\" --initial --command \"yarn test\"",
