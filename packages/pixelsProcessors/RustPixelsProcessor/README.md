@@ -20,9 +20,9 @@ yarn test:watch (runs all tests in watch mode)
 ```
 
 ## Requirements
+
 - Rustup (Rust toolchain)
 - Cargo (Rust package manager)
 - wasm-pack (for building and testing)
 - Yarn (for managing workspace)
 - Firefox (for running integration tests)
-

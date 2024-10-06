@@ -16,17 +16,16 @@ opt-level = 3
 lto = true
 
 [dependencies]
-wasm-bindgen = "0.2.84"
+wasm-bindgen = "0.2.93"
 js-sys = "0.3.70"
 console_error_panic_hook = { version = "0.1.7", optional = true }
 
 [dev-dependencies]
-wasm-bindgen-test = "0.3.34"
+wasm-bindgen-test = "0.3.43"
 rstest = "0.23.0"
 
 [target.'cfg(not(target_arch = "wasm32"))'.dev-dependencies]
 criterion = "0.5.1"
-
 
 [[bench]]
 name = "pixels_processors_benchmark"
