@@ -5,45 +5,23 @@
   "type": "module",
   "packageManager": "yarn@3.4.1",
   "exports": {
-    "./all": "./dist/release/index.js",
-    "./inline": "./dist/release/inline.js",
-    "./simd": "./dist/release/simd.js",
-    "./dev-all": "./dist/debug/index.js",
-    "./dev-inline": "./dist/debug/inline.js",
-    "./dev-simd": "./dist/debug/simd.js"
+    ".": "./dist/release/index.js",
+    "./dev": "./dist/debug/index.js"
   },
   "typesVersions": {
     "*": {
-      "all": [
+      "*": [
         "./dist/release/index.d.ts"
       ],
-      "inline": [
-        "./dist/release/inline.d.ts"
-      ],
-      "simd": [
-        "./dist/release/simd.d.ts"
-      ],
-      "dev-all": [
+      "dev": [
         "./dist/debug/index.d.ts"
-      ],
-      "dev-inline": [
-        "./dist/debug/inline.d.ts"
-      ],
-      "dev-simd": [
-        "./dist/debug/simd.d.ts"
       ]
     }
   },
   "scripts": {
     "compile": "asc assembly/index.ts --noEmit",
-    "build:debug-inline": "asc assembly/pixelsProcessorInline.ts --target debug --outFile dist/debug/inline.wasm",
-    "build:debug-simd": "asc assembly/pixelsProcessorSIMD.ts --target debug --outFile dist/debug/simd.wasm",
-    "build:debug-all": "asc assembly/index.ts --target debug --outFile dist/debug/index.wasm",
-    "build:debug": "yarn build:debug-all & yarn build:debug-inline & yarn build:debug-simd",
-    "build:release-inline": "asc assembly/pixelsProcessorInline.ts --target release --outFile dist/release/inline.wasm",
-    "build:release-simd": "asc assembly/pixelsProcessorSIMD.ts --target release --outFile dist/release/simd.wasm",
-    "build:release-all": "asc assembly/index.ts --target release --outFile dist/release/index.wasm",
-    "build:release": "yarn build:release-all & yarn build:release-inline & yarn build:release-simd",
+    "build:debug": "asc assembly/index.ts --target debug --outFile dist/debug/index.wasm",
+    "build:release": "asc assembly/index.ts --target release --outFile dist/release/index.wasm",
     "build": "yarn build:debug & yarn build:release",
     "dev": "chokidar \"assembly/**/*.ts\"  --initial --command \"yarn build:debug\"",
     "test": "asp --summary",

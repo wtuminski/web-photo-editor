@@ -1,8 +1,9 @@
+import * as asPixelsProcessor from '@web-photo-editor/as-pixels-processor';
 import { PixelsProcessors, SIMDPixelsProcessors } from '@web-photo-editor/rust-pixels-processor';
 import * as tsFilters from '@web-photo-editor/ts-pixels-processor';
 import { match, P } from 'ts-pattern';
+import { simd } from 'wasm-feature-detect';
 
-import { getASPixelsProcessor } from './getASPixelsProcessor';
 import { FiltersVariant, ImageDataProcessor, ImageFilterType } from './types';
 
 //
@@ -19,7 +20,7 @@ type ImageFilter = (pixels: Uint8ClampedArray, filterValue: number) => Uint8Clam
 
 const bytesPerPage = 64 * 1024;
 const operationMemorySizeRatio = 2;
-const asPixelsProcessor = await getASPixelsProcessor();
+const isSimdSupported = await simd();
 
 const prepareMemoryBinding = (numberOfBytes: number): Uint8ClampedArray => {
   const { memory } = asPixelsProcessor;
@@ -41,7 +42,8 @@ const getASImageFilter =
       asPixelsProcessor[filterType](numberOfRgbaPixels, filterValue);
     }
     if (filtersVariant === 'asSIMD') {
-      asPixelsProcessor[`${filterType}SIMD`](numberOfRgbaPixels, filterValue);
+      const simdSuffix = isSimdSupported ? 'SIMD' : '';
+      asPixelsProcessor[`${filterType}${simdSuffix}`](numberOfRgbaPixels, filterValue);
     }
 
     return memoryBinding.subarray(
@@ -53,9 +55,10 @@ const getASImageFilter =
 const getRustImageFilter =
   (filterType: ImageFilterType, filtersVariant: FiltersVariant): ImageFilter =>
   (pixels, filterValue) => {
+    const simdPixelsProcessors = isSimdSupported ? SIMDPixelsProcessors : PixelsProcessors;
     const newPixels = match(filtersVariant)
       .with('rust', () => PixelsProcessors[filterType](pixels, filterValue))
-      .with('rustSIMD', () => SIMDPixelsProcessors[filterType](pixels, filterValue))
+      .with('rustSIMD', () => simdPixelsProcessors[filterType](pixels, filterValue))
       .otherwise(() => {
         throw new Error('Rust filters are not implemented yet');
       });
