@@ -5,7 +5,6 @@ wasm_bindgen_test::wasm_bindgen_test_configure!(run_in_browser);
 #[cfg(test)]
 mod pixel_processor_tests {
     use js_sys::Uint8ClampedArray;
-    use rstest::rstest;
     use wasm_bindgen::JsValue;
     use wasm_bindgen_test::wasm_bindgen_test;
 
@@ -17,48 +16,59 @@ mod pixel_processor_tests {
 
     type PixelChannels = Uint8ClampedArray;
 
-    #[rstest]
-    #[wasm_bindgen_test]
-    #[case::grayscale(PixelsProcessors::grayscale, GRAYSCALE_OUTPUT.to_vec())]
-    #[ignore = "not implemented"]
-    #[wasm_bindgen_test]
-    #[case::inversion(PixelsProcessors::inversion, INVERSION_OUTPUT.to_vec())]
-    #[ignore = "not implemented"]
-    #[wasm_bindgen_test]
-    #[case::hue(PixelsProcessors::hue, HUE_OUTPUT.to_vec())]
-    #[ignore = "not implemented"]
-    #[wasm_bindgen_test]
-    #[case::saturation(PixelsProcessors::saturation, LUMINOSITY_OUTPUT.to_vec())]
-    #[ignore = "not implemented"]
-    #[wasm_bindgen_test]
-    #[case::luminosity(PixelsProcessors::luminosity, SATURATION_OUTPUT.to_vec())]
-    #[ignore = "not implemented"]
-    #[wasm_bindgen_test]
-    #[case::grayscale_simd(SIMDPixelsProcessors::grayscale, GRAYSCALE_OUTPUT.to_vec())]
-    #[ignore = "not implemented"]
-    #[wasm_bindgen_test]
-    #[case::inversion_simd(SIMDPixelsProcessors::inversion, INVERSION_OUTPUT.to_vec())]
-    #[ignore = "not implemented"]
-    #[wasm_bindgen_test]
-    #[case::hue_simd(SIMDPixelsProcessors::hue, HUE_OUTPUT.to_vec())]
-    #[ignore = "not implemented"]
-    #[wasm_bindgen_test]
-    #[case::saturation_simd(SIMDPixelsProcessors::saturation, LUMINOSITY_OUTPUT.to_vec())]
-    #[ignore = "not implemented"]
-    #[wasm_bindgen_test]
-    #[case::luminosity_simd(SIMDPixelsProcessors::luminosity, SATURATION_OUTPUT.to_vec())]
-    fn image_processor_test(
-        #[case] processor: fn(PixelChannels, u8) -> PixelChannels,
-        #[case] expected: Vec<u8>,
-    ) {
-        // given
-        let input = PixelChannels::new(&JsValue::from_f64(PIXELS_PROCESSOR_INPUT.len() as f64));
-        input.copy_from(&PIXELS_PROCESSOR_INPUT);
+    macro_rules! generate_pixels_processors_tests {
+        ($($func_name:ident: ($pixels_processor:expr, $expected:expr),)+) => {
+            $(
+                #[wasm_bindgen_test]
+                fn $func_name() {
 
-        // when
-        let output = processor(input, 0);
+                    // given
+                    let input = PixelChannels::new(&JsValue::from_f64(PIXELS_PROCESSOR_INPUT.len() as f64));
+                    input.copy_from(&PIXELS_PROCESSOR_INPUT);
 
-        // then
-        assert_eq!(output.to_vec(), expected);
+                    // when
+                    let output = $pixels_processor(input, 0);
+
+                    // then
+                    assert_eq!(output.to_vec(), $expected);
+                }
+            )*
+        }
+    }
+
+    macro_rules! generate_pixels_processors_ignored_tests {
+        ($($func_name:ident: ($pixels_processor:expr, $expected:expr),)+) => {
+            $(
+                #[ignore="not implemented yet"]
+                #[wasm_bindgen_test]
+                fn $func_name() {
+
+                    // given
+                    let input = PixelChannels::new(&JsValue::from_f64(PIXELS_PROCESSOR_INPUT.len() as f64));
+                    input.copy_from(&PIXELS_PROCESSOR_INPUT);
+
+                    // when
+                    let output = $pixels_processor(input, 0);
+
+                    // then
+                    assert_eq!(output.to_vec(), $expected);
+                }
+            )*
+        }
+    }
+
+    generate_pixels_processors_tests! {
+        grayscale_test: (PixelsProcessors::grayscale, GRAYSCALE_OUTPUT.to_vec()),
+        inversion_test: (PixelsProcessors::inversion, INVERSION_OUTPUT.to_vec()),
+    }
+    generate_pixels_processors_ignored_tests! {
+        hue_test: (PixelsProcessors::hue, HUE_OUTPUT.to_vec()),
+        saturation_test: (PixelsProcessors::saturation, SATURATION_OUTPUT.to_vec()),
+        luminosity_test: (PixelsProcessors::luminosity, LUMINOSITY_OUTPUT.to_vec()),
+        grayscale_simd_test: (SIMDPixelsProcessors::grayscale, GRAYSCALE_OUTPUT.to_vec()),
+        inversion_simd_test: (SIMDPixelsProcessors::inversion, INVERSION_OUTPUT.to_vec()),
+        hue_simd_test: (SIMDPixelsProcessors::hue, HUE_OUTPUT.to_vec()),
+        saturation_simd_test: (SIMDPixelsProcessors::saturation, SATURATION_OUTPUT.to_vec()),
+        luminosity_simd_test: (SIMDPixelsProcessors::luminosity, LUMINOSITY_OUTPUT.to_vec()),
     }
 }
