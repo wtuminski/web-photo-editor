@@ -97,9 +97,8 @@ export function inversionSIMD(numberOfRgbaPixels: u32, filterValue: i8): void {
     );
 
     const inverteds = f32x4.sub(MAX_RGB_VALUES, rgbaPixels);
-    const adjustedInverteds = f32x4.max(
-      MIN_RGB_VALUES,
-      f32x4.min(f32x4.mul(inverteds, filterRate), MAX_RGB_VALUES),
+    const adjustedInverteds = f32x4.nearest(
+      f32x4.max(MIN_RGB_VALUES, f32x4.min(f32x4.mul(inverteds, filterRate), MAX_RGB_VALUES)),
     );
 
     store<u8>(currentIndex + numberOfRgbaPixels, f32x4.extract_lane(adjustedInverteds, 0) as u8);

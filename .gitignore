@@ -18,7 +18,13 @@
 !.yarn/versions
 
 # rust
-**/target
+**/target/debug
+**/target/release
+**/target/tmp
+**/target/wasm32-unknown-unknown
+**/target/wasm32-wasip1
+**/target/.rustc_info.json
+**/target/CACHEDIR.TAG
 **/*.rs.bk
 Cargo.lock
 pkg/

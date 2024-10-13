@@ -95,14 +95,14 @@ impl SIMDPixelsProcessors {
     }
 }
 
-pub mod native_pixels_processors {
+pub mod wasi_pixels_processors {
     pub use crate::pixels_processors::*;
 }
 
-pub mod native_simd_pixels_processors {
+pub mod wasi_simd_pixels_processors {
     pub use crate::simd_pixels_processors::*;
 }
 
-pub mod native_common {
+pub mod wasi_common {
     pub use crate::types::HSL;
 }

@@ -21,8 +21,16 @@ yarn test:watch (runs all tests in watch mode)
 
 ## Requirements
 
+### Tools
+
 - Rustup (Rust toolchain)
 - Cargo (Rust package manager)
 - wasm-pack (for building and testing)
+- wasmtime (for running WASM unit tests and benchmarks)
 - Yarn (for managing workspace)
 - Firefox (for running integration tests)
+
+### Targets to add
+
+- wasm32-unknown-unknown
+- wasm32-wasip1

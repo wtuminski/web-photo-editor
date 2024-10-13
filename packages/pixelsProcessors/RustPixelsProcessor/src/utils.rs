@@ -72,7 +72,6 @@ mod tests {
     //
     // use_image_filter tests
     //
-    wasm_bindgen_test::wasm_bindgen_test_configure!(run_in_browser);
 
     #[wasm_bindgen_test::wasm_bindgen_test]
     fn it_should_return_updated_pixel_channels() {

@@ -1,8 +1,6 @@
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 
-use rust_pixels_processor::{
-    native_common, native_pixels_processors, native_simd_pixels_processors,
-};
+use rust_pixels_processor::{wasi_common, wasi_pixels_processors, wasi_simd_pixels_processors};
 
 macro_rules! generate_pixels_processors_benchmarks {
     ($($func_name:ident: ($bench_name:literal, $pixels_processor:expr),)+) => {
@@ -23,33 +21,42 @@ macro_rules! generate_pixels_processors_benchmarks {
 
 generate_pixels_processors_benchmarks! {
     // simple
-    grayscale_benchmark: ("grayscale", native_pixels_processors::grayscale),
-    inversion_benchmark: ("inversion", native_pixels_processors::inversion),
-    hue_benchmark: ("hue",native_pixels_processors::get_hsl(native_common::HSL::Hue)),
-    saturation_benchmark: ("saturation",native_pixels_processors::get_hsl(native_common::HSL::Saturation)),
-    luminosity_benchmark: ("luminosity",native_pixels_processors::get_hsl(native_common::HSL::Luminosity)),
+    grayscale_benchmark: ("grayscale", wasi_pixels_processors::grayscale),
+    inversion_benchmark: ("inversion", wasi_pixels_processors::inversion),
+    hue_benchmark: ("hue",wasi_pixels_processors::get_hsl(wasi_common::HSL::Hue)),
+    saturation_benchmark: ("saturation",wasi_pixels_processors::get_hsl(wasi_common::HSL::Saturation)),
+    luminosity_benchmark: ("luminosity",wasi_pixels_processors::get_hsl(wasi_common::HSL::Luminosity)),
     // simd
-    simd_grayscale_benchmark: ("simd_grayscale", native_simd_pixels_processors::grayscale),
-    simd_inversion_benchmark: ("simd_inversion", native_simd_pixels_processors::inversion),
-    simd_hue_benchmark: ("simd_hue",native_simd_pixels_processors::get_hsl(native_common::HSL::Hue)),
-    simd_saturation_benchmark: ("simd_saturation",native_simd_pixels_processors::get_hsl(native_common::HSL::Saturation)),
-    simd_luminosity_benchmark: ("simd_luminosity",native_simd_pixels_processors::get_hsl(native_common::HSL::Luminosity)),
+    simd_grayscale_benchmark: ("simd_grayscale", wasi_simd_pixels_processors::grayscale),
+    simd_inversion_benchmark: ("simd_inversion", wasi_simd_pixels_processors::inversion),
+    simd_hue_benchmark: ("simd_hue",wasi_simd_pixels_processors::get_hsl(wasi_common::HSL::Hue)),
+    simd_saturation_benchmark: ("simd_saturation",wasi_simd_pixels_processors::get_hsl(wasi_common::HSL::Saturation)),
+    simd_luminosity_benchmark: ("simd_luminosity",wasi_simd_pixels_processors::get_hsl(wasi_common::HSL::Luminosity)),
+}
+
+fn init_criterion() -> Criterion {
+    // Set the CRITERION_HOME env variable as a runtime variable, because system env vars are not available in WASM runtime
+    std::env::set_var("CRITERION_HOME", "benches/results");
+    let criterion = Criterion::default();
+    criterion
 }
 
 criterion_group!(
-    benches,
+    name = benches;
+    config = init_criterion();
+    targets =
     // simple
-    grayscale_benchmark,
-    inversion_benchmark,
-    hue_benchmark,
-    saturation_benchmark,
-    luminosity_benchmark,
+        grayscale_benchmark,
+        inversion_benchmark,
+        hue_benchmark,
+        saturation_benchmark,
+        luminosity_benchmark,
     // simd
-    simd_grayscale_benchmark,
-    simd_inversion_benchmark,
-    simd_hue_benchmark,
-    simd_saturation_benchmark,
-    simd_luminosity_benchmark
+        simd_grayscale_benchmark,
+        simd_inversion_benchmark,
+        simd_hue_benchmark,
+        simd_saturation_benchmark,
+        simd_luminosity_benchmark
 );
 criterion_main!(benches);
 

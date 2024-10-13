@@ -1,0 +1,6 @@
+{
+  "name": "@web-photo-editor/rust-pixels-processor",
+  "private": true,
+  "description": "Package.json created to set type to commonjs for wasm-bindgen tests",
+  "type": "commonjs"
+}

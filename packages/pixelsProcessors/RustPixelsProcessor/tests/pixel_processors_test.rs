@@ -1,7 +1,5 @@
 mod common;
 
-wasm_bindgen_test::wasm_bindgen_test_configure!(run_in_browser);
-
 #[cfg(test)]
 mod pixel_processor_tests {
     use js_sys::Uint8ClampedArray;
@@ -60,13 +58,13 @@ mod pixel_processor_tests {
     generate_pixels_processors_tests! {
         grayscale_test: (PixelsProcessors::grayscale, GRAYSCALE_OUTPUT.to_vec()),
         inversion_test: (PixelsProcessors::inversion, INVERSION_OUTPUT.to_vec()),
+        grayscale_simd_test: (SIMDPixelsProcessors::grayscale, GRAYSCALE_OUTPUT.to_vec()),
+        inversion_simd_test: (SIMDPixelsProcessors::inversion, INVERSION_OUTPUT.to_vec()),
     }
     generate_pixels_processors_ignored_tests! {
         hue_test: (PixelsProcessors::hue, HUE_OUTPUT.to_vec()),
         saturation_test: (PixelsProcessors::saturation, SATURATION_OUTPUT.to_vec()),
         luminosity_test: (PixelsProcessors::luminosity, LUMINOSITY_OUTPUT.to_vec()),
-        grayscale_simd_test: (SIMDPixelsProcessors::grayscale, GRAYSCALE_OUTPUT.to_vec()),
-        inversion_simd_test: (SIMDPixelsProcessors::inversion, INVERSION_OUTPUT.to_vec()),
         hue_simd_test: (SIMDPixelsProcessors::hue, HUE_OUTPUT.to_vec()),
         saturation_simd_test: (SIMDPixelsProcessors::saturation, SATURATION_OUTPUT.to_vec()),
         luminosity_simd_test: (SIMDPixelsProcessors::luminosity, LUMINOSITY_OUTPUT.to_vec()),
